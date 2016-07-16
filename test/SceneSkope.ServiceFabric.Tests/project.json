@@ -1,0 +1,37 @@
+﻿{
+  "version": "1.0.0-*",
+  "authors": [
+    "nick.randell@sceneskope.com"
+  ],
+  "packOptions": {
+    "projectUrl": "https://github.com/sceneskope/service-fabric",
+    "licenseUrl": "https://opensource.org/licenses/MIT"
+  },
+  "copyright": "SceneSkope © 2016",
+  "buildOptions": {
+    "warningsAsErrors": true,
+    "platform": "x64"
+  },
+  "description": "SceneSkope Service Fabric Tests",
+
+  "testRunner": "xunit",
+  "dependencies": {
+    "dotnet-test-xunit": "2.2.0-*",
+    "xunit": "2.2.0-*",
+    "FluentAssertions": "4.12.0"
+  },
+
+  "frameworks": {
+    "net452": {
+      "dependencies": {
+        "SceneSkope.ServiceFabric.Actors.Utilities": "*",
+        "SceneSkope.ServiceFabric.Actors.Seq": "*",
+      },
+      "frameworkAssemblies": {
+        "System.Runtime": {
+          "type": "build"
+        }
+      }
+    }
+  }
+}
