@@ -16,13 +16,13 @@ artifacts:
 deploy:
 - provider: NuGet
   api_key:
-    secure: xxx
+    secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
   skip_symbols: true
   on:
     branch: /^(master|dev)$/
 - provider: GitHub
   auth_token:
-    secure: xxx
+    secure: ka0RY4J4jxtefevVfoAUgl+rQu1wmy1mb5ccHp9Gc87DZazKdITimPttRZuGGQ56
   artifact: /SceneSkope.*\.nupkg/
   tag: v$(appveyor_build_version)
   on:
