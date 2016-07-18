@@ -28,9 +28,9 @@ $suffix = @{ $true = ""; $false = "$($branch.Substring(0, [math]::Min(10,$branch
 
 $modifyVersion = $false
 $modifiedVersion = "1.0.0-*"
-if (($env:APPVEYOR_BUILD_NUMBER -ne $NULL) -and ($suffix -eq "")) {
+if (($env:APPVEYOR_BUILD_VERSION -ne $NULL) -and ($suffix -eq "")) {
     $modifyVersion = $true
-    $modifiedVersion = $env:APPVEYOR_BUILD_NUMBER
+    $modifiedVersion = $env:APPVEYOR_BUILD_VERSION
 
     Get-ChildItem -Path . -Filter project.json -Recurse |
     ForEach-Object {
