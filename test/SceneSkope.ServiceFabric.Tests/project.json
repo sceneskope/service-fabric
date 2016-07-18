@@ -24,8 +24,8 @@
   "frameworks": {
     "net452": {
       "dependencies": {
-        "SceneSkope.ServiceFabric.Actors.Utilities": "*",
-        "SceneSkope.ServiceFabric.Actors.Seq": "*",
+        "SceneSkope.ServiceFabric.Actors.Utilities": "1.0.0-*",
+        "SceneSkope.ServiceFabric.Actors.Seq": "1.0.0-*"
       },
       "frameworkAssemblies": {
         "System.Runtime": {
