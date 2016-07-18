@@ -1,4 +1,5 @@
 echo "build: Build started"
+dir "env:APPVEYOR*"
 
 Push-Location $PSScriptRoot
 
