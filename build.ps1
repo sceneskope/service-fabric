@@ -26,7 +26,21 @@ $branch = @{ $true = $env:APPVEYOR_REPO_BRANCH; $false = $(git symbolic-ref --sh
 $revision = @{ $true = "{0:00000}" -f [convert]::ToInt32("0" + $env:APPVEYOR_BUILD_NUMBER, 10); $false = "local" }[$env:APPVEYOR_BUILD_NUMBER -ne $NULL];
 $suffix = @{ $true = ""; $false = "$($branch.Substring(0, [math]::Min(10,$branch.Length)))-$revision"}[$branch -eq "master" -and $revision -ne "local"]
 
-echo "build: Version suffix is $suffix"
+$modifyVersion = $false
+$modifiedVersion = "1.0.0-*"
+if (($env:APPVEYOR_BUILD_NUMBER -ne $NULL) -and ($suffix -eq "")) {
+    $modifyVersion = $true
+    $modifiedVersion = $env:APPVEYOR_BUILD_NUMBER
+
+    Get-ChildItem -Path . -Filter project.json -Recurse |
+    ForEach-Object {
+        $content = get-content $_.FullName
+        $content = $content.Replace("1.0.0-*", "$modifiedVersion")
+        Set-Content $_.FullName $content -Encoding UTF8
+    }
+}
+
+echo "build: Version $modifiedVersion $suffix"
 dotnet build src/**/project.json --version-suffix=$suffix -c Release
 if($LASTEXITCODE -ne 0) { exit 1 }
 
@@ -41,6 +55,14 @@ foreach ($src in ls src/*) {
     Pop-Location
 }
 
+if ($modifyVersion) {
+    Get-ChildItem -Path . -Filter project.json -Recurse |
+    ForEach-Object {
+        $content = get-content $_.FullName
+        $content = $content.Replace("$modifiedVersion", "1.0.0-*")
+        Set-Content $_.FullName $content -Encoding UTF8
+    }
+}
 
 Pop-Location
 
