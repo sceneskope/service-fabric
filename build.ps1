@@ -1,5 +1,4 @@
 echo "build: Build started"
-dir "env:APPVEYOR*"
 
 Push-Location $PSScriptRoot
 
@@ -9,19 +8,6 @@ if(Test-Path .\artifacts) {
 }
 Get-ChildItem -rec -Filter bin | Remove-Item -Recurse -Force
 Get-ChildItem -Recurse -Filter obj | Remove-Item -Recurse -Force
-
-& dotnet restore --no-cache
-
-foreach ($test in ls test/*.Tests) {
-    Push-Location $test
-
-    echo "build: Testing project in $test"
-
-    & dotnet test
-    if($LASTEXITCODE -ne 0) { Pop-Location; exit 3 }
-
-    Pop-Location
-}
 
 $branch = @{ $true = $env:APPVEYOR_REPO_BRANCH; $false = $(git symbolic-ref --short -q HEAD) }[$env:APPVEYOR_REPO_BRANCH -ne $NULL];
 $revision = @{ $true = "{0:00000}" -f [convert]::ToInt32("0" + $env:APPVEYOR_BUILD_NUMBER, 10); $false = "local" }[$env:APPVEYOR_BUILD_NUMBER -ne $NULL];
@@ -40,6 +26,22 @@ if (($env:APPVEYOR_BUILD_VERSION -ne $NULL) -and ($suffix -eq "")) {
         Set-Content $_.FullName $content -Encoding UTF8
     }
 }
+
+
+
+& dotnet restore --no-cache
+
+foreach ($test in ls test/*.Tests) {
+    Push-Location $test
+
+    echo "build: Testing project in $test"
+
+    & dotnet test
+    if($LASTEXITCODE -ne 0) { Pop-Location; exit 3 }
+
+    Pop-Location
+}
+
 
 echo "build: Version $modifiedVersion $suffix"
 dotnet build src/**/project.json --version-suffix=$suffix -c Release
