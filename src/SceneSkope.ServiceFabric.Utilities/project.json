@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "authors": [
     "nick.randell@sceneskope.com"
@@ -15,12 +15,13 @@
     "platform": "x64"
   },
   "description": "SceneSkope Service Fabric Utilities",
-
   "frameworks": {
     "net452": {
       "dependencies": {
-        "Microsoft.ServiceFabric.Services": "2.1.150"
       }
     }
+  },
+  "dependencies": {
+    "Microsoft.ServiceFabric.Services": "2.1.163"
   }
 }

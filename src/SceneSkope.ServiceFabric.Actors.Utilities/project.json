@@ -15,14 +15,15 @@
     "platform": "x64"
   },
   "description": "SceneSkope Service Fabric Actor Utilities",
-
   "frameworks": {
     "net452": {
       "dependencies": {
-        "Microsoft.Diagnostics.Tracing.EventSource.Redist": "1.1.28",
-        "Microsoft.ServiceFabric.Actors": "2.1.150",
-        "SceneSkope.ServiceFabric.Utilities": "1.0.0-*"
       }
     }
+  },
+  "dependencies": {
+    "Microsoft.Diagnostics.Tracing.EventSource.Redist": "1.1.28",
+    "Microsoft.ServiceFabric.Actors": "2.1.163",
+    "SceneSkope.ServiceFabric.Utilities": "1.0.0-*"
   }
 }
