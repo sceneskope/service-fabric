@@ -96,7 +96,7 @@ namespace SceneSkope.ServiceFabric.Seq
         {
             GC.KeepAlive(this);
             _duration = durationMs;
-            _template = new MessageTemplateParser().Parse("{node}:{process} {cpu} {memory} {threads}");
+            _template = new MessageTemplateParser().Parse("{node}:{process} {cpu} {memory} {vm} {threads}");
             var context = FabricRuntime.GetNodeContext();
             var nodeName = context.NodeName;
             var processName = Process.GetCurrentProcess().ProcessName;
@@ -122,19 +122,21 @@ namespace SceneSkope.ServiceFabric.Seq
         {
             var logEvent = new LogEvent(DateTimeOffset.Now, LogEventLevel.Information, null, _template, new[] {
                 new LogEventProperty("cpu", new ScalarValue(delta.TotalProcessorTime.TotalSeconds)),
-                new LogEventProperty("memory", new ScalarValue(delta.VirtualMemorySize)),
+                new LogEventProperty("vm", new ScalarValue(delta.VirtualMemorySize)),
                 new LogEventProperty("threads", new ScalarValue(delta.Threads)),
-                new LogEventProperty("totalMemory", new ScalarValue(delta.TotalMemory)),
+                new LogEventProperty("memory", new ScalarValue(delta.TotalMemory)),
                 new LogEventProperty("gen0", new ScalarValue(delta.Gen0)),
                 new LogEventProperty("gen1", new ScalarValue(delta.Gen1)),
                 new LogEventProperty("gen2", new ScalarValue(delta.Gen2)),
-                new LogEventProperty("workerThreads", new ScalarValue(delta.WorkerThreads)),
-                new LogEventProperty("completionPortThreads", new ScalarValue(delta.CompletionPortThreads)),
-                new LogEventProperty("pagedMemory", new ScalarValue(delta.PagedMemorySize)),
-                new LogEventProperty("workingSet", new ScalarValue(delta.WorkingSet)),
-                new LogEventProperty("peakVirtualMemory", new ScalarValue(delta.PeakVirtualMemorySize)),
-                new LogEventProperty("peakPagedMemory", new ScalarValue(delta.PeakPagedMemorySize)),
-                new LogEventProperty("peakWorkingSet", new ScalarValue(delta.PeakWorkingSet))
+                new LogEventProperty("wT", new ScalarValue(delta.WorkerThreads)),
+                new LogEventProperty("cPT", new ScalarValue(delta.CompletionPortThreads)),
+                new LogEventProperty("pM", new ScalarValue(delta.PagedMemorySize)),
+                new LogEventProperty("wS", new ScalarValue(delta.WorkingSet)),
+                new LogEventProperty("pVM", new ScalarValue(delta.PeakVirtualMemorySize)),
+                new LogEventProperty("pPM", new ScalarValue(delta.PeakPagedMemorySize)),
+                new LogEventProperty("pWS", new ScalarValue(delta.PeakWorkingSet)),
+                new LogEventProperty("pCpu", new ScalarValue(delta.PrivilegedProcessorTime.TotalSeconds)),
+                new LogEventProperty("uCpu", new ScalarValue(delta.UserProcessorTime.TotalSeconds))
             });
             _logger.Write(logEvent);
         }
