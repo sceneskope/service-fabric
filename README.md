@@ -43,3 +43,23 @@ In the application parameters configure the parameter
 Inside a service, create an ILogger for each service, for example:
 
     Log = ServiceLogger.CreateLogger(this);
+
+## Getting partition Information
+Add reference to SceneSkope.ServiceFabric.utilities
+
+To list the partitions for a service:
+
+    PartitionUtilities.GetPartitionListAsync(serviceName);
+
+To list the partitions ordered, useful if you want to show partition N of MinimumLevel
+
+    PartitionUtilities.GetOrderedPartitionListAsync(serivceName);
+
+Extension method to get the service partition key for a partition:
+
+    partitionInformation.ServicePartitionKey();
+
+To get a list of services across all partitions:
+
+    partitionInformation.GetServiceListAsync<ISampleService>(serviceName);
+
