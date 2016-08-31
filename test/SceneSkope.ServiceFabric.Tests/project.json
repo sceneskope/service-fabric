@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "authors": [
     "nick.randell@sceneskope.com"
@@ -18,7 +18,7 @@
   "dependencies": {
     "dotnet-test-xunit": "2.2.0-*",
     "xunit": "2.2.0-*",
-    "FluentAssertions": "4.12.0",
+    "FluentAssertions": "4.13.0",
     "SceneSkope.ServiceFabric.Actors.Utilities": "1.0.0-*",
     "SceneSkope.ServiceFabric.Actors.Seq": "1.0.0-*"
   },

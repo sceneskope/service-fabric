@@ -40,7 +40,7 @@ namespace SceneSkope.ServiceFabric.Seq
 
             var seqServer = configurationProvider.GetValue("SeqServer");
             _logger = new LoggerConfiguration()
-                .WriteTo.Seq(seqServer)
+                .WriteTo.Seq(seqServer, compact: true)
                 .CreateLogger();
             Log.Logger = _logger;
         }
