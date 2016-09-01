@@ -53,6 +53,34 @@ namespace SceneSkope.ServiceFabric.Utilities
             }
         }
 
+        protected async Task<T> ReadOnlyServiceFor<T>(ServicePartitionKey key, Func<TService, Task<T>> func)
+        {
+            var service = ServiceProxy.Create<TService>(_uri, key, listenerName: _listenerName, targetReplicaSelector: TargetReplicaSelector.RandomSecondaryReplica);
+            try
+            {
+                return await func(service);
+            }
+            catch (AggregateException ex)
+            {
+                var flattened = ex.Flatten();
+                throw ex.InnerException;
+            }
+        }
+
+        protected async Task ReadOnlyServiceFor(ServicePartitionKey key, Func<TService, Task> func)
+        {
+            var service = ServiceProxy.Create<TService>(_uri, key, listenerName: _listenerName, targetReplicaSelector: TargetReplicaSelector.RandomSecondaryReplica);
+            try
+            {
+                await func(service);
+            }
+            catch (AggregateException ex)
+            {
+                var flattened = ex.Flatten();
+                throw ex.InnerException;
+            }
+        }
+
         protected static async Task<T[]> CollectFromAllServicesAsync<T>(IList<TService> services, Func<TService, Task<T>> serviceFunc)
         {
             try
