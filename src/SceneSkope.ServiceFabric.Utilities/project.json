@@ -17,11 +17,19 @@
   "description": "SceneSkope Service Fabric Utilities",
   "frameworks": {
     "net452": {
-      "dependencies": {
+      "frameworkAssemblies": {
+        "System.Runtime": {
+
+          "type": "build"
+        },
+        "System.Threading.Tasks": {
+          "type": "build"
+        }
       }
     }
   },
   "dependencies": {
-    "Microsoft.ServiceFabric.Services": "2.1.163"
+    "Microsoft.ServiceFabric.Services": "2.1.163",
+    "Nito.AsyncEx": "3.0.1"
   }
 }
