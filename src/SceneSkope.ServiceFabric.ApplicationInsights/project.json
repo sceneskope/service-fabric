@@ -1,19 +1,25 @@
 ﻿{
-  "title": "SceneSkope.ServiceFabric.ApplicationInsights",
-  "description": "Application Insights for sceneskope and service fabric",
-  "copyright": "Copyright © SceneSkope 2016",
   "version": "1.0.0-*",
+  "authors": [
+    "nick.randell@sceneskope.com"
+  ],
+  "packOptions": {
+    "tags": [ "SceneSkope", "ServiceFabric" ],
+    "projectUrl": "https://github.com/sceneskope/service-fabric",
+    "licenseUrl": "https://opensource.org/licenses/MIT",
+    "iconUrl": "https://sceneskope.io/images/sceneskope-logo.png"
+  },
+  "copyright": "SceneSkope © 2016",
   "buildOptions": {
+    "warningsAsErrors": true,
     "platform": "x64"
   },
+  "description": "Application Insights for sceneskope and service fabric",
   "dependencies": {
     "Microsoft.ApplicationInsights": "2.1.0",
     "SceneSkope.ServiceFabric.Utilities": "1.0.0.*"
   },
   "frameworks": {
     "net452": {}
-  },
-  "runtimes": {
-    "win-x64": {}
   }
 }
