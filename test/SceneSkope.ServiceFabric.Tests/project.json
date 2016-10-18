@@ -20,7 +20,7 @@
     "xunit": "2.2.0-*",
     "SceneSkope.ServiceFabric.Actors.Utilities": "1.0.0-*",
     "SceneSkope.ServiceFabric.Actors.Seq": "1.0.0-*",
-    "FluentAssertions": "4.14.0"
+    "FluentAssertions": "4.15.0"
   },
 
   "frameworks": {
