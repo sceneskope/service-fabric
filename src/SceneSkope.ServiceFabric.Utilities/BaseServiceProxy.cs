@@ -55,7 +55,7 @@ namespace SceneSkope.ServiceFabric.Utilities
 
         protected async Task<T> ReadOnlyServiceFor<T>(ServicePartitionKey key, Func<TService, Task<T>> func)
         {
-            var service = ServiceProxy.Create<TService>(_uri, key, listenerName: _listenerName, targetReplicaSelector: TargetReplicaSelector.RandomSecondaryReplica);
+            var service = ServiceProxy.Create<TService>(_uri, key, listenerName: _listenerName, targetReplicaSelector: TargetReplicaSelector.RandomReplica);
             try
             {
                 return await func(service);
@@ -69,7 +69,7 @@ namespace SceneSkope.ServiceFabric.Utilities
 
         protected async Task ReadOnlyServiceFor(ServicePartitionKey key, Func<TService, Task> func)
         {
-            var service = ServiceProxy.Create<TService>(_uri, key, listenerName: _listenerName, targetReplicaSelector: TargetReplicaSelector.RandomSecondaryReplica);
+            var service = ServiceProxy.Create<TService>(_uri, key, listenerName: _listenerName, targetReplicaSelector: TargetReplicaSelector.RandomReplica);
             try
             {
                 await func(service);
