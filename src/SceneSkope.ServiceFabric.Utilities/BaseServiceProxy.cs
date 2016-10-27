@@ -21,7 +21,7 @@ namespace SceneSkope.ServiceFabric.Utilities
         {
             _uri = new Uri(name);
             _listenerName = listenerName;
-            _allRoPartitionsProxy = new AsyncLazy<List<TService>>(() => PartitionUtilities.GetServiceListAsync<TService>(_uri, TargetReplicaSelector.RandomSecondaryReplica));
+            _allRoPartitionsProxy = new AsyncLazy<List<TService>>(() => PartitionUtilities.GetServiceListAsync<TService>(_uri, TargetReplicaSelector.RandomReplica));
             _allRwPartitionsProxy = new AsyncLazy<List<TService>>(() => PartitionUtilities.GetServiceListAsync<TService>(_uri));
         }
 
