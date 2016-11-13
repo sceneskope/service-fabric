@@ -25,6 +25,6 @@
     "Microsoft.Diagnostics.Tracing.EventSource.Redist": "1.1.28",
     "Microsoft.ServiceFabric.Services": "2.3.301",
     "SceneSkope.ServiceFabric.Utilities": "1.0.0-*",
-    "Serilog.Sinks.Seq": "3.0.1"
+    "Serilog.Sinks.Seq": "3.1.1"
   }
 }
