@@ -20,6 +20,13 @@ namespace SceneSkope.ServiceFabric.Seq
 
         public static ILogger CreateLogger(IConfigurationProvider configurationProvider)
         {
+            var loggerConfiguration = CreateLoggerConfiguration(configurationProvider);
+            return loggerConfiguration.CreateLogger();
+
+        }
+
+        public static LoggerConfiguration CreateLoggerConfiguration(IConfigurationProvider configurationProvider)
+        {
             var loggerConfiguration = new LoggerConfiguration();
             if (configurationProvider.HasConfiguration)
             {
@@ -48,8 +55,7 @@ namespace SceneSkope.ServiceFabric.Seq
                     .MinimumLevel.Error()
                     ;
             }
-            return loggerConfiguration.CreateLogger();
-
+            return loggerConfiguration;
         }
 
         public static ILogger Logger { get; } = CreaterDefaultLogger();
