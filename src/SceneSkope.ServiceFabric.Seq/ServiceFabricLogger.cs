@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SceneSkope.ServiceFabric.Utilities;
 using Serilog;
+using Serilog.Core;
 using Serilog.Events;
 
 namespace SceneSkope.ServiceFabric.Seq
@@ -13,15 +14,25 @@ namespace SceneSkope.ServiceFabric.Seq
         private static ILogger CreaterDefaultLogger()
         {
             var configurationProvider = new FabricConfigurationProvider("SeqConfig");
+            Log.Logger = CreateLogger(configurationProvider);
+            return Log.Logger;
+        }
 
+        public static ILogger CreateLogger(IConfigurationProvider configurationProvider)
+        {
             var loggerConfiguration = new LoggerConfiguration();
             if (configurationProvider.HasConfiguration)
             {
+                var levelSwitch = new LoggingLevelSwitch();
                 var seqServer = configurationProvider.GetValue("SeqServer");
+                var apiKey = configurationProvider.TryGetValue("ApiKey");
                 loggerConfiguration =
                     loggerConfiguration
-                    .WriteTo.Seq(seqServer, period: TimeSpan.FromMilliseconds(500))
-                    ;
+                    .WriteTo.Seq(seqServer,
+                        period: TimeSpan.FromMilliseconds(500),
+                        compact: true,
+                        apiKey: apiKey,
+                        controlLevelSwitch: levelSwitch);
 
                 var level = configurationProvider.GetValue("MinimumLevel");
                 LogEventLevel minimumLevel;
@@ -37,9 +48,8 @@ namespace SceneSkope.ServiceFabric.Seq
                     .MinimumLevel.Error()
                     ;
             }
+            return loggerConfiguration.CreateLogger();
 
-            Log.Logger = loggerConfiguration.CreateLogger();
-            return Log.Logger;
         }
 
         public static ILogger Logger { get; } = CreaterDefaultLogger();

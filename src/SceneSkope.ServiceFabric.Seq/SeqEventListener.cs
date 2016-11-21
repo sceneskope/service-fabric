@@ -38,16 +38,7 @@ namespace SceneSkope.ServiceFabric.Seq
             {
                 return;
             }
-
-            var levelSwitch = new LoggingLevelSwitch();
-            var seqServer = configurationProvider.GetValue("SeqServer");
-            var apiKey = configurationProvider.TryGetValue("ApiKey");
-            _logger = new LoggerConfiguration()
-                .WriteTo.Seq(seqServer,
-                    compact: true,
-                    apiKey: apiKey,
-                    controlLevelSwitch: levelSwitch)
-                .CreateLogger();
+            _logger = ServiceFabricLogger.CreateLogger(configurationProvider);
             Log.Logger = _logger;
         }
 
