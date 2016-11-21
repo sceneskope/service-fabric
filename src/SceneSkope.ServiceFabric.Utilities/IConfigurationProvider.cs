@@ -10,5 +10,6 @@ namespace SceneSkope.ServiceFabric.Utilities
         bool HasConfiguration { get; }
 
         string GetValue(string name);
+        string TryGetValue(string name);
     }
 }

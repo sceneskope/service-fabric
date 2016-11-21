@@ -16,16 +16,31 @@ namespace SceneSkope.ServiceFabric.Utilities
 
         public static string ReadConfigurationString(this KeyedCollection<string, ConfigurationProperty> parameters, string parameterName, bool allowBlank = false)
         {
-            if (!parameters.Contains(parameterName))
+            var parameter = parameters.TryReadConfigurationString(parameterName);
+            if (parameters == null)
             {
                 throw new KeyNotFoundException($"Configuration parameter '{parameterName}' not found");
             }
-            var parameter = parameters[parameterName].Value;
-            if ((parameter == null) || (!allowBlank && string.IsNullOrWhiteSpace(parameter)))
+            if (!allowBlank && string.IsNullOrWhiteSpace(parameter))
             {
                 throw new ArgumentException($"Parameter '{parameterName}' must not be null or blank");
             }
             return parameter;
+        }
+
+        public static string TryReadConfigurationString(this ConfigurationSection configSection, string parameterName) =>
+            ReadConfigurationString(configSection.Parameters, parameterName);
+
+        public static string TryReadConfigurationString(this KeyedCollection<string, ConfigurationProperty> parameters, string parameterName)
+        {
+            if (parameters.Contains(parameterName))
+            {
+                return parameters[parameterName].Value;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static int ReadConfigurationInt(this ConfigurationSection configSection, string parameterName) =>

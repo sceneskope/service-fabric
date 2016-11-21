@@ -27,6 +27,7 @@ namespace SceneSkope.ServiceFabric.Utilities
         public bool HasConfiguration => _configurationProperties != null;
 
         public string GetValue(string name) => _configurationProperties.ReadConfigurationString(name);
+        public string TryGetValue(string name) => _configurationProperties.TryReadConfigurationString(name);
 
         private void UseConfiguration(ConfigurationPackage configPackage, string configurationSectionName)
         {
