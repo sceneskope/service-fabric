@@ -28,8 +28,8 @@
       }
     }
   },
-  "dependencies": {
-    "Microsoft.ServiceFabric.Services": "2.3.301",
-    "Nito.AsyncEx": "3.0.1"
-  }
+    "dependencies": {
+        "Microsoft.ServiceFabric.Services": "2.3.311",
+        "Nito.AsyncEx": "3.0.1"
+    }
 }
