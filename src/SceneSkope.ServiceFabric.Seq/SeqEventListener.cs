@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Diagnostics.Tracing;
 using SceneSkope.ServiceFabric.Utilities;
 using Serilog;
+using Serilog.Core;
 using Serilog.Events;
 using Serilog.Parsing;
 
@@ -38,9 +39,14 @@ namespace SceneSkope.ServiceFabric.Seq
                 return;
             }
 
+            var levelSwitch = new LoggingLevelSwitch();
             var seqServer = configurationProvider.GetValue("SeqServer");
+            var apiKey = configurationProvider.TryGetValue("ApiKey");
             _logger = new LoggerConfiguration()
-                .WriteTo.Seq(seqServer, compact: true)
+                .WriteTo.Seq(seqServer,
+                    compact: true,
+                    apiKey: apiKey,
+                    controlLevelSwitch: levelSwitch)
                 .CreateLogger();
             Log.Logger = _logger;
         }
