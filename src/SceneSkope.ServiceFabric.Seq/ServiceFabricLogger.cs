@@ -30,7 +30,18 @@ namespace SceneSkope.ServiceFabric.Seq
             var loggerConfiguration = new LoggerConfiguration();
             if (configurationProvider.HasConfiguration)
             {
-                var levelSwitch = new LoggingLevelSwitch();
+                var level = configurationProvider.GetValue("MinimumLevel");
+                LogEventLevel minimumLevel;
+                if (!string.IsNullOrWhiteSpace(level) && Enum.TryParse<LogEventLevel>(level, true, out minimumLevel))
+                {
+                    loggerConfiguration = loggerConfiguration.MinimumLevel.Is(minimumLevel);
+                }
+                else
+                {
+                    minimumLevel = LogEventLevel.Information;
+                }
+
+                var levelSwitch = new LoggingLevelSwitch(minimumLevel);
                 var seqServer = configurationProvider.GetValue("SeqServer");
                 var apiKey = configurationProvider.TryGetValue("ApiKey");
                 loggerConfiguration =
@@ -41,12 +52,6 @@ namespace SceneSkope.ServiceFabric.Seq
                         apiKey: apiKey,
                         controlLevelSwitch: levelSwitch);
 
-                var level = configurationProvider.GetValue("MinimumLevel");
-                LogEventLevel minimumLevel;
-                if (!string.IsNullOrWhiteSpace(level) && Enum.TryParse<LogEventLevel>(level, true, out minimumLevel))
-                {
-                    loggerConfiguration = loggerConfiguration.MinimumLevel.Is(minimumLevel);
-                }
             }
             else
             {
