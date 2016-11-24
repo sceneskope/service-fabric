@@ -40,5 +40,36 @@ namespace SceneSkope.ServiceFabric.Utilities
                 _configurationProperties = configPackage.Settings.Sections[configurationSectionName].Parameters;
             }
         }
+
+        public bool TryParseInt(string name, out int value)
+        {
+            var stringValue = _configurationProperties.TryReadConfigurationString(name);
+            if (!string.IsNullOrWhiteSpace(stringValue))
+            {
+                return int.TryParse(stringValue, out value);
+            }
+            else
+            {
+                value = 0;
+                return false;
+            }
+        }
+
+        public int ReadIntOrDefault(string name, int defaultValue)
+        {
+            if (_configurationProperties == null)
+            {
+                return defaultValue;
+            }
+            else
+            {
+                int value;
+                if (!TryParseInt(name, out value))
+                {
+                    value = defaultValue;
+                }
+                return value;
+            }
+        }
     }
 }
