@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace SceneSkope.ServiceFabric.Seq
+namespace SceneSkope.ServiceFabric.Serilog
 {
     public class ServiceFabricEnricher<T> : ILogEventEnricher where T : ServiceContext
     {

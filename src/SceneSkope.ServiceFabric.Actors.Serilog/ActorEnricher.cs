@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
-using SceneSkope.ServiceFabric.Seq;
+using SceneSkope.ServiceFabric.Serilog;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace SceneSkope.ServiceFabric.Actors.Seq
+namespace SceneSkope.ServiceFabric.Actors.Serilog
 {
     internal class ActorEnricher : StatefulServiceEnricher
     {

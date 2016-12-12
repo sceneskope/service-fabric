@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace SceneSkope.ServiceFabric.Seq
+namespace SceneSkope.ServiceFabric.Serilog
 {
-    internal class StatelessServiceEnricher : ServiceEnricher<StatelessServiceContext>
+    public class StatelessServiceEnricher : ServiceEnricher<StatelessServiceContext>
     {
         private LogEventProperty _instanceId;
 

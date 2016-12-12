@@ -4,50 +4,25 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Diagnostics.Tracing;
-using SceneSkope.ServiceFabric.Utilities;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 using Serilog.Parsing;
 
-namespace SceneSkope.ServiceFabric.Seq
+namespace SceneSkope.ServiceFabric.Serilog
 {
-    public class SeqEventListener : EventListener
+    public class SerilogEventListener : EventListener
     {
-        public static SeqEventListener Initialise()
-        {
-            var configurationProvider = new FabricConfigurationProvider("SeqConfig");
-
-            SeqEventListener seqListener = null;
-            if (configurationProvider.HasConfiguration)
-            {
-                seqListener = new SeqEventListener(configurationProvider);
-            }
-            return seqListener;
-        }
-
         private readonly ILogger _logger;
-        public bool Disabled { get; }
-
         private readonly MessageTemplateParser _parser = new MessageTemplateParser();
 
-        public SeqEventListener(IConfigurationProvider configurationProvider)
+        public SerilogEventListener(ILogger logger)
         {
-            Disabled = !configurationProvider.HasConfiguration;
-            if (Disabled)
-            {
-                return;
-            }
-            _logger = ServiceFabricLogger.CreateLogger(configurationProvider);
-            Log.Logger = _logger;
+            _logger = logger;
         }
 
         protected override void OnEventSourceCreated(EventSource eventSource)
         {
-            if (!Disabled)
-            {
-                EnableEvents(eventSource, EventLevel.LogAlways, (EventKeywords)~0);
-            }
+            EnableEvents(eventSource, EventLevel.LogAlways, (EventKeywords)~0);
         }
 
         private static readonly LogEventLevel[] s_levels = {

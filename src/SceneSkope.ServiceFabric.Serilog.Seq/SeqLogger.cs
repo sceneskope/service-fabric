@@ -7,15 +7,16 @@ using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace SceneSkope.ServiceFabric.Seq
+namespace SceneSkope.ServiceFabric.Serilog.Seq
 {
-    public static class ServiceFabricLogger
+    public static class SeqLogger
     {
+        public static ILogger DefaultLogger { get; } = CreaterDefaultLogger();
+
         private static ILogger CreaterDefaultLogger()
         {
             var configurationProvider = new FabricConfigurationProvider("SeqConfig");
-            Log.Logger = CreateLogger(configurationProvider);
-            return Log.Logger;
+            return CreateLogger(configurationProvider);
         }
 
         public static ILogger CreateLogger(IConfigurationProvider configurationProvider)
@@ -53,16 +54,7 @@ namespace SceneSkope.ServiceFabric.Seq
                         controlLevelSwitch: levelSwitch);
 
             }
-            else
-            {
-                loggerConfiguration =
-                    loggerConfiguration
-                    .MinimumLevel.Error()
-                    ;
-            }
             return loggerConfiguration;
         }
-
-        public static ILogger Logger { get; } = CreaterDefaultLogger();
     }
 }
