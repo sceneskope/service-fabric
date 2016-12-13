@@ -26,6 +26,12 @@ namespace SceneSkope.ServiceFabric.Serilog.Seq
 
         }
 
+        public static LoggerConfiguration CreateDefaultLoggerConfiguration()
+        {
+            var configurationProvider = new FabricConfigurationProvider("SeqConfig");
+            return CreateLoggerConfiguration(configurationProvider);
+        }
+
         public static LoggerConfiguration CreateLoggerConfiguration(IConfigurationProvider configurationProvider)
         {
             var loggerConfiguration = new LoggerConfiguration();

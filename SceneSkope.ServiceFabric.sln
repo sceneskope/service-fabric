@@ -29,6 +29,10 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SceneSkope.ServiceFabric.Se
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SceneSkope.ServiceFabric.Actors.Serilog", "src\SceneSkope.ServiceFabric.Actors.Serilog\SceneSkope.ServiceFabric.Actors.Serilog.xproj", "{B396F361-F8B8-4589-A6A2-E98C0C0532B3}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SceneSkope.ServiceFabric.Actors.Seq", "src\SceneSkope.ServiceFabric.Actors.Seq\SceneSkope.ServiceFabric.Actors.Seq.xproj", "{09BD5DB7-2EC9-4915-8DB8-EA4A20CAE73E}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SceneSkope.ServiceFabric.Seq", "src\SceneSkope.ServiceFabric.Seq\SceneSkope.ServiceFabric.Seq.xproj", "{248D44A9-D695-4679-8365-20528B94A139}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{B396F361-F8B8-4589-A6A2-E98C0C0532B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B396F361-F8B8-4589-A6A2-E98C0C0532B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B396F361-F8B8-4589-A6A2-E98C0C0532B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09BD5DB7-2EC9-4915-8DB8-EA4A20CAE73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09BD5DB7-2EC9-4915-8DB8-EA4A20CAE73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09BD5DB7-2EC9-4915-8DB8-EA4A20CAE73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09BD5DB7-2EC9-4915-8DB8-EA4A20CAE73E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{248D44A9-D695-4679-8365-20528B94A139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{248D44A9-D695-4679-8365-20528B94A139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248D44A9-D695-4679-8365-20528B94A139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{248D44A9-D695-4679-8365-20528B94A139}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +87,7 @@ Global
 		{A602BD21-77CF-4F9B-A39F-2D8095D253FC} = {6EB97861-65C9-4685-93CC-5E2350DB072C}
 		{A6075AF4-B088-493D-A032-9408EF84C920} = {6EB97861-65C9-4685-93CC-5E2350DB072C}
 		{B396F361-F8B8-4589-A6A2-E98C0C0532B3} = {6EB97861-65C9-4685-93CC-5E2350DB072C}
+		{09BD5DB7-2EC9-4915-8DB8-EA4A20CAE73E} = {6EB97861-65C9-4685-93CC-5E2350DB072C}
+		{248D44A9-D695-4679-8365-20528B94A139} = {6EB97861-65C9-4685-93CC-5E2350DB072C}
 	EndGlobalSection
 EndGlobal
