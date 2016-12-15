@@ -26,6 +26,6 @@
         "SceneSkope.ServiceFabric.Utilities": "1.0.0-*",
         "SceneSkope.ServiceFabric.Seq": "1.0.0-*",
         "Serilog.Sinks.Seq": "3.1.1",
-        "Microsoft.ServiceFabric.Actors": "2.3.311"
+        "Microsoft.ServiceFabric.Actors": "2.4.145"
     }
 }

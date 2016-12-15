@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "authors": [
     "nick.randell@sceneskope.com"
@@ -25,6 +25,6 @@
         "Microsoft.Diagnostics.Tracing.EventSource.Redist": "1.1.28",
         "SceneSkope.ServiceFabric.Utilities": "1.0.0-*",
         "SceneSkope.ServiceFabric.Serilog": "1.0.0-*",
-        "Microsoft.ServiceFabric.Actors": "2.3.311"
+        "Microsoft.ServiceFabric.Actors": "2.4.145"
     }
 }

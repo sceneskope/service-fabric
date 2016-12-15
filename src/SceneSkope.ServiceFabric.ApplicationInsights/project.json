@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "authors": [
     "nick.randell@sceneskope.com"
@@ -15,10 +15,10 @@
     "platform": "x64"
   },
   "description": "Application Insights for sceneskope and service fabric",
-  "dependencies": {
-    "Microsoft.ApplicationInsights": "2.1.0",
-    "SceneSkope.ServiceFabric.Utilities": "1.0.0.*"
-  },
+    "dependencies": {
+        "Microsoft.ApplicationInsights": "2.2.0",
+        "SceneSkope.ServiceFabric.Utilities": "1.0.0.*"
+    },
   "frameworks": {
     "net452": {}
   }
