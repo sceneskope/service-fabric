@@ -6,14 +6,13 @@ using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Client;
 using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
-using Nito.AsyncEx;
 
 namespace SceneSkope.ServiceFabric.Utilities
 {
     public class BaseServiceProxy<TService> where TService : IService
     {
-        protected readonly AsyncLazy<List<TService>> _allRoPartitionsProxy;
-        protected readonly AsyncLazy<List<TService>> _allRwPartitionsProxy;
+        private List<TService> _allRoPartitionsProxyList;
+        private List<TService> _allRwPartitionsProxyList;
         private readonly string _listenerName;
         private readonly Uri _uri;
 
@@ -21,8 +20,19 @@ namespace SceneSkope.ServiceFabric.Utilities
         {
             _uri = new Uri(name);
             _listenerName = listenerName;
-            _allRoPartitionsProxy = new AsyncLazy<List<TService>>(() => PartitionUtilities.GetServiceListAsync<TService>(_uri, TargetReplicaSelector.RandomReplica));
-            _allRwPartitionsProxy = new AsyncLazy<List<TService>>(() => PartitionUtilities.GetServiceListAsync<TService>(_uri));
+        }
+
+        protected Task<List<TService>> AllRoPartitionsProxy => GetServiceListAsync(_allRoPartitionsProxyList, list => _allRoPartitionsProxyList = list, TargetReplicaSelector.RandomReplica);
+        protected Task<List<TService>> AllRwPartitionsProxy => GetServiceListAsync(_allRoPartitionsProxyList, list => _allRwPartitionsProxyList = list, TargetReplicaSelector.Default);
+
+        private async Task<List<TService>> GetServiceListAsync(List<TService> list, Action<List<TService>> setter, TargetReplicaSelector selector)
+        {
+            if (list == null)
+            {
+                list = await PartitionUtilities.GetServiceListAsync<TService>(_uri, selector);
+                setter(list);
+            }
+            return list;
         }
 
         protected async Task<T> ServiceFor<T>(ServicePartitionKey key, Func<TService, Task<T>> func)
