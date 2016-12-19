@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0-*",
+  "authors": [
+    "nick.randell@sceneskope.com"
+  ],
+    "packOptions": {
+        "tags": [ "ServiceFabric", "Serilog" ],
+        "projectUrl": "https://github.com/sceneskope/service-fabric",
+        "licenseUrl": "https://opensource.org/licenses/MIT",
+        "iconUrl": "https://sceneskope.io/images/sceneskope-logo.png"
+    },
+  "copyright": "SceneSkope 2016",
+  "buildOptions": {
+    "warningsAsErrors": true,
+    "platform": "x64"
+  },
+  "description": "Service Fabric Seq Logging",
+  "frameworks": {
+    "net452": {
+      "dependencies": {
+      }
+    }
+  },
+    "dependencies": {
+        "Serilog.Sinks.Seq": "3.1.1",
+        "ServiceFabric.Utilities": "1.0.0-*",
+        "Microsoft.ServiceFabric.Services": "2.4.145"
+    }
+}

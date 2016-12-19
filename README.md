@@ -1,25 +1,26 @@
 # service-fabric
-SceneSkope Service Fabric utilities
+Service Fabric utilities
 
 ## Various utilities for adding logging and other functionality to service fabric
 
 To use:
 
-Add reference to SceneSkope.ServiceFabric.XXX nuget packages
+Add reference to ServiceFabric.XXX nuget packages
 
 ### Using Seq for logging
 
-    var seqEventListener = SeqEventListener.Initialise();
+    SerilogEventListener.Initialise(SeqEventLogger.DefaultLogger);
     GC.KeepAlive(seqEventListener);
 
 In Settings.xml in the configuration, add entries for
 
     <Section Name="SeqConfig">
-      <Parameter Name="SeqServer" Value="-"/>
+      <Parameter Name="SeqServer" Value="" MustOverride=true />
+      <Parameter Name="ApiKey" Value="-" />
       <Parameter Name="MinimumLevel" Value="Information"/>
     </Section>
 
-Add a parameters into the parameter section of the applicatio manifest
+Add a parameters into the parameter section of the application manifest
 
     <Parameter Name="SeqServer" DefaultValue="" />
 
@@ -40,12 +41,9 @@ In the application parameters configure the parameter
 
     <Parameter Name="SeqServer" Value="http://localhost:5341" />
 
-Inside a service, create an ILogger for each service, for example:
-
-    Log = ServiceLogger.CreateLogger(this);
 
 ## Getting partition Information
-Add reference to SceneSkope.ServiceFabric.utilities
+Add reference to ServiceFabric.utilities
 
 To list the partitions for a service:
 
