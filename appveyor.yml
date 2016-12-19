@@ -23,7 +23,7 @@ deploy:
 - provider: GitHub
   auth_token:
     secure: ka0RY4J4jxtefevVfoAUgl+rQu1wmy1mb5ccHp9Gc87DZazKdITimPttRZuGGQ56
-  artifact: /*\.nupkg/
+  artifact: /ServiceFabric.*\.nupkg/
   tag: v$(appveyor_build_version)
   on:
     branch: master
