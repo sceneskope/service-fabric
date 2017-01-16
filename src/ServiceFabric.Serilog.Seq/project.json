@@ -21,9 +21,9 @@
       }
     }
   },
-    "dependencies": {
-        "Serilog.Sinks.Seq": "3.1.1",
-        "ServiceFabric.Utilities": "1.0.0-*",
-        "Microsoft.ServiceFabric.Services": "2.4.145"
-    }
+  "dependencies": {
+    "ServiceFabric.Utilities": "1.0.0-*",
+    "Serilog.Sinks.Seq": "3.2.0",
+    "Microsoft.ServiceFabric.Services": "2.4.145"
+  }
 }
