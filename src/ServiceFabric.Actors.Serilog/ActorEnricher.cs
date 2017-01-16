@@ -9,7 +9,7 @@ using Serilog.Events;
 
 namespace ServiceFabric.Actors.Serilog
 {
-    internal class ActorEnricher : StatefulServiceEnricher
+    public class ActorEnricher : StatefulServiceEnricher
     {
         private readonly Actor _actor;
 
