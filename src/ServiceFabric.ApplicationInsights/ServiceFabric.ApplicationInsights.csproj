@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Application Insights for sceneskope and service fabric</Description>
+    <Copyright>SceneSkope © 2016</Copyright>
+    <Authors>nick.randell@sceneskope.com</Authors>
+    <TargetFramework>net452</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>ServiceFabric.ApplicationInsights</AssemblyName>
+    <PackageId>ServiceFabric.ApplicationInsights</PackageId>
+    <PackageTags>SceneSkope;ServiceFabric</PackageTags>
+    <PackageIconUrl>https://sceneskope.io/images/sceneskope-logo.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceFabric.Utilities\ServiceFabric.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>

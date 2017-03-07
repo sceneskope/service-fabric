@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Service Fabric Actor Seq Logging</Description>
+    <Copyright>SceneSkope © 2016</Copyright>
+    <Authors>nick.randell@sceneskope.com</Authors>
+    <TargetFramework>net452</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>ServiceFabric.Actors.Serilog</AssemblyName>
+    <PackageId>ServiceFabric.Actors.Serilog</PackageId>
+    <PackageTags>ServiceFabric;Serilog</PackageTags>
+    <PackageIconUrl>https://sceneskope.io/images/sceneskope-logo.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceFabric.Serilog\ServiceFabric.Serilog.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="2.4.164" />
+  </ItemGroup>
+
+</Project>

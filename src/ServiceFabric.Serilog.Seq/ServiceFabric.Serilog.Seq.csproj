@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Service Fabric Seq Logging</Description>
+    <Copyright>SceneSkope 2016</Copyright>
+    <Authors>nick.randell@sceneskope.com</Authors>
+    <TargetFramework>net452</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>ServiceFabric.Serilog.Seq</AssemblyName>
+    <PackageId>ServiceFabric.Serilog.Seq</PackageId>
+    <PackageTags>ServiceFabric;Serilog</PackageTags>
+    <PackageIconUrl>https://sceneskope.io/images/sceneskope-logo.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceFabric.Utilities\ServiceFabric.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog.Sinks.Seq" Version="3.2.0" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="2.4.164" />
+  </ItemGroup>
+
+</Project>

@@ -1,10 +1,13 @@
-echo "build: Build started"
+Write-Output "build: Build started"
+$env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+$env:NUGET_XMLDOC_MODE="skip"
 
-Push-Location $PSScriptRoot
+$BuildConfiguration="Release"
+$ArtifactStagingDirectory="$PSScriptRoot\artifacts"
 
-if(Test-Path .\artifacts) {
-    echo "build: Cleaning .\artifacts"
-    Remove-Item .\artifacts -Force -Recurse
+if(Test-Path $ArtifactStagingDirectory) {
+    Write-Output "build: Cleaning "
+    Remove-Item $ArtifactStagingDirectory -Force -Recurse
 }
 Get-ChildItem -rec -Filter bin | Remove-Item -Recurse -Force
 Get-ChildItem -Recurse -Filter obj | Remove-Item -Recurse -Force
@@ -13,59 +16,19 @@ $branch = @{ $true = $env:APPVEYOR_REPO_BRANCH; $false = $(git symbolic-ref --sh
 $revision = @{ $true = "{0:00000}" -f [convert]::ToInt32("0" + $env:APPVEYOR_BUILD_NUMBER, 10); $false = "local" }[$env:APPVEYOR_BUILD_NUMBER -ne $NULL];
 $suffix = @{ $true = ""; $false = "$($branch.Substring(0, [math]::Min(10,$branch.Length)))-$revision"}[$branch -eq "master" -and $revision -ne "local"]
 
-$modifyVersion = $false
-$modifiedVersion = "1.0.0-*"
+$modifiedVersion = "1.0.0-dev.1"
 if (($env:APPVEYOR_BUILD_VERSION -ne $NULL) -and ($suffix -eq "")) {
-    $modifyVersion = $true
     $modifiedVersion = $env:APPVEYOR_BUILD_VERSION
-
-    Get-ChildItem -Path . -Filter project.json -Recurse |
-    ForEach-Object {
-        $content = get-content $_.FullName
-        $content = $content.Replace("1.0.0-*", "$modifiedVersion")
-        Set-Content $_.FullName $content -Encoding UTF8
-    }
 }
 
-
-
-& dotnet restore --no-cache
-
-foreach ($test in ls test/*.Tests) {
-    Push-Location $test
-
-    echo "build: Testing project in $test"
-
-    & dotnet test
-    if($LASTEXITCODE -ne 0) { Pop-Location; exit 3 }
-
-    Pop-Location
-}
-
-
-echo "build: Version $modifiedVersion $suffix"
-dotnet build src/**/project.json --version-suffix=$suffix -c Release
+dotnet --version
+dotnet restore
+if($LASTEXITCODE -ne 0) { exit 1 }
+dotnet build --configuration ${BuildConfiguration} /p:Version=$modifiedVersion
 if($LASTEXITCODE -ne 0) { exit 1 }
 
-foreach ($src in ls src/*) {
-    Push-Location $src
-
-    echo "build: Packaging project in $src"
-
-    & dotnet pack --no-build -c Release -o ..\..\artifacts --version-suffix=$suffix
-    if($LASTEXITCODE -ne 0) { Pop-Location; exit 1 }
-
-    Pop-Location
+$projects = $(Get-ChildItem src -rec -filter *.csproj | ForEach-Object { $_.FullName })
+foreach ($project in $projects) {
+    dotnet pack --no-build --configuration ${BuildConfiguration} --output ${ArtifactStagingDirectory} /p:Version=$modifiedVersion $project
+    if($LASTEXITCODE -ne 0) { exit 1 }
 }
-
-if ($modifyVersion) {
-    Get-ChildItem -Path . -Filter project.json -Recurse |
-    ForEach-Object {
-        $content = get-content $_.FullName
-        $content = $content.Replace("$modifiedVersion", "1.0.0-*")
-        Set-Content $_.FullName $content -Encoding UTF8
-    }
-}
-
-Pop-Location
-
