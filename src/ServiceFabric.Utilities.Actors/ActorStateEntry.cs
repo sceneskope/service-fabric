@@ -21,17 +21,17 @@ namespace ServiceFabric.Utilities.Actors
         public Task<ConditionalValue<T>> TryGetAsync() => _stateManager.TryGetStateAsync<T>(_name);
         public async Task<ConditionalValue<T>> TryRemoveAsync()
         {
-            var value = await _stateManager.TryGetStateAsync<T>(_name);
+            var value = await _stateManager.TryGetStateAsync<T>(_name).ConfigureAwait(false);
             if (value.HasValue)
             {
-                await _stateManager.RemoveStateAsync(_name);
+                await _stateManager.RemoveStateAsync(_name).ConfigureAwait(false);
             }
             return value;
         }
 
         public async Task<T> GetOrCreateAsync(Func<T> factory)
         {
-            var value = await _stateManager.TryGetStateAsync<T>(_name);
+            var value = await _stateManager.TryGetStateAsync<T>(_name).ConfigureAwait(false);
             if (value.HasValue)
             {
                 return value.Value;
@@ -39,7 +39,7 @@ namespace ServiceFabric.Utilities.Actors
             else
             {
                 var newValue = factory();
-                await _stateManager.SetStateAsync(_name, newValue);
+                await _stateManager.SetStateAsync(_name, newValue).ConfigureAwait(false);
                 return newValue;
             }
         }

@@ -16,6 +16,5 @@ namespace ServiceFabric.Actors.Serilog
         {
             Log = logger.ForContext(new[] {  new ActorEnricher(this)});
         }
-
     }
 }

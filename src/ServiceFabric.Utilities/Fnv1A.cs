@@ -13,12 +13,7 @@ namespace ServiceFabric.Utilities
 
         private ulong _hash;
 
-        public static Fnv1A Create()
-        {
-            var hash = new Fnv1A();
-            hash._hash = offset;
-            return hash;
-        }
+        public static Fnv1A Create() => new Fnv1A { _hash = offset };
 
         public Fnv1A Compute(byte[] array, int index, int count)
         {

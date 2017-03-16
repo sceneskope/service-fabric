@@ -63,8 +63,7 @@ namespace ServiceFabric.Utilities
             }
             else
             {
-                int value;
-                if (!TryParseInt(name, out value))
+                if (!TryParseInt(name, out var value))
                 {
                     value = defaultValue;
                 }

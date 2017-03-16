@@ -23,15 +23,11 @@ namespace ServiceFabric.ApplicationInsights
                 telemetry.Context.Cloud.RoleName = name;
             }
 
-
-
             if (string.IsNullOrEmpty(telemetry.Context.Cloud.RoleInstance))
             {
                 var name = LazyInitializer.EnsureInitialized(ref this.roleInstanceName, () => ServiceFabricEnvironmentContextReader.Instance.NodeName);
                 telemetry.Context.Cloud.RoleInstance = name;
-
             }
-
         }
     }
 }

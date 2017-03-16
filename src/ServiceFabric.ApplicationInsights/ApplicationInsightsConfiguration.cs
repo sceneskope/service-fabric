@@ -18,6 +18,5 @@ namespace ServiceFabric.ApplicationInsights
                 TelemetryConfiguration.Active.InstrumentationKey = applicationInsightsConfiguration.GetValue("InstrumentationKey");
             }
         }
-
     }
 }

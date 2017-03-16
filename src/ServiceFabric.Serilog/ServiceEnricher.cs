@@ -22,9 +22,9 @@ namespace ServiceFabric.Serilog
         {
             base.Enrich(logEvent, propertyFactory);
 
-            if (_serviceName == null) _serviceName = propertyFactory.CreateProperty("serviceName", Context.ServiceName);
-            if (_partitionId == null) _partitionId = propertyFactory.CreateProperty("partitionId", Context.PartitionId);
-            if (_applicationName == null) _applicationName = propertyFactory.CreateProperty("applicationName", Context.CodePackageActivationContext.ApplicationName);
+            _serviceName = _serviceName ?? propertyFactory.CreateProperty("serviceName", Context.ServiceName);
+            _partitionId = _partitionId ?? propertyFactory.CreateProperty("partitionId", Context.PartitionId);
+            _applicationName = _applicationName ?? propertyFactory.CreateProperty("applicationName", Context.CodePackageActivationContext.ApplicationName);
 
             logEvent.AddPropertyIfAbsent(_serviceName);
             logEvent.AddPropertyIfAbsent(_partitionId);

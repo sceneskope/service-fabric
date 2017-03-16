@@ -27,7 +27,7 @@ namespace ServiceFabric.Utilities
         {
             using (var fabricClient = new FabricClient())
             {
-                var partitions = await fabricClient.QueryManager.GetPartitionListAsync(serviceName);
+                var partitions = await fabricClient.QueryManager.GetPartitionListAsync(serviceName).ConfigureAwait(false);
                 var result = partitions.Select(p => p.PartitionInformation).ToList();
                 return result;
             }
@@ -35,7 +35,7 @@ namespace ServiceFabric.Utilities
 
         public static async Task<List<ServicePartitionInformation>> GetOrderedPartitionListAsync(Uri serviceName)
         {
-            var partitions = await GetPartitionListAsync(serviceName);
+            var partitions = await GetPartitionListAsync(serviceName).ConfigureAwait(false);
             if (partitions.Count > 1)
             {
                 switch (partitions[0].Kind)
@@ -54,15 +54,14 @@ namespace ServiceFabric.Utilities
 
         public static async Task<List<TService>> GetServiceListAsync<TService>(Uri serviceName, TargetReplicaSelector targetReplicaSelector = TargetReplicaSelector.Default, string listenerName = null)
             where TService : IService =>
-            (await GetPartitionListAsync(serviceName))
+            (await GetPartitionListAsync(serviceName).ConfigureAwait(false))
             .Select(spi => ServiceProxy.Create<TService>(serviceName, spi.ServicePartitionKey(), targetReplicaSelector, listenerName))
             .ToList();
 
         public static async Task<List<TService>> GetOrderedServiceListAsync<TService>(Uri serviceName, TargetReplicaSelector targetReplicaSelector = TargetReplicaSelector.Default, string listenerName = null)
             where TService : IService =>
-            (await GetOrderedPartitionListAsync(serviceName))
+            (await GetOrderedPartitionListAsync(serviceName).ConfigureAwait(false))
             .Select(spi => ServiceProxy.Create<TService>(serviceName, spi.ServicePartitionKey(), targetReplicaSelector, listenerName))
             .ToList();
-
     }
 }

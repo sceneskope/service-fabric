@@ -19,7 +19,7 @@ namespace ServiceFabric.Serilog
         public override void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
             base.Enrich(logEvent, propertyFactory);
-            if (_replicaId == null) _replicaId = propertyFactory.CreateProperty("replicaId", Context.ReplicaId);
+            _replicaId = _replicaId ?? propertyFactory.CreateProperty("replicaId", Context.ReplicaId);
             logEvent.AddPropertyIfAbsent(_replicaId);
         }
     }

@@ -42,13 +42,13 @@ namespace ServiceFabric.Serilog
 
         protected override void OnEventWritten(EventWrittenEventArgs eventData)
         {
-            var properties = new List<LogEventProperty>();
-
-            properties.Add(new LogEventProperty("etwEventId", new ScalarValue(eventData.EventId)));
-            properties.Add(new LogEventProperty("keywords", new ScalarValue(((long)eventData.Keywords).ToString("X016"))));
-            properties.Add(new LogEventProperty("providerId", new ScalarValue(eventData.EventSource.Guid)));
-            properties.Add(new LogEventProperty("providerName", new ScalarValue(eventData.EventSource.Name)));
-
+            var properties = new List<LogEventProperty>
+            {
+                new LogEventProperty("etwEventId", new ScalarValue(eventData.EventId)),
+                new LogEventProperty("keywords", new ScalarValue(((long)eventData.Keywords).ToString("X016"))),
+                new LogEventProperty("providerId", new ScalarValue(eventData.EventSource.Guid)),
+                new LogEventProperty("providerName", new ScalarValue(eventData.EventSource.Name))
+            };
             string escapedMessage;
             try
             {

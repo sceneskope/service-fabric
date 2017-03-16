@@ -23,7 +23,6 @@ namespace ServiceFabric.Serilog.Seq
         {
             var loggerConfiguration = CreateLoggerConfiguration(configurationProvider);
             return loggerConfiguration.CreateLogger();
-
         }
 
         public static LoggerConfiguration CreateDefaultLoggerConfiguration()
@@ -38,8 +37,7 @@ namespace ServiceFabric.Serilog.Seq
             if (configurationProvider.HasConfiguration)
             {
                 var level = configurationProvider.GetValue("MinimumLevel");
-                LogEventLevel minimumLevel;
-                if (!string.IsNullOrWhiteSpace(level) && Enum.TryParse<LogEventLevel>(level, true, out minimumLevel))
+                if (!string.IsNullOrWhiteSpace(level) && Enum.TryParse<LogEventLevel>(level, true, out var minimumLevel))
                 {
                     loggerConfiguration = loggerConfiguration.MinimumLevel.Is(minimumLevel);
                 }
@@ -58,7 +56,6 @@ namespace ServiceFabric.Serilog.Seq
                         compact: true,
                         apiKey: apiKey,
                         controlLevelSwitch: levelSwitch);
-
             }
             return loggerConfiguration;
         }

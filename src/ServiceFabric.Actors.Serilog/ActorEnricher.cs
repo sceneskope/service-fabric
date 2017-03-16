@@ -24,8 +24,8 @@ namespace ServiceFabric.Actors.Serilog
         public override void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
             base.Enrich(logEvent, propertyFactory);
-            if (_actorType == null) _actorType = propertyFactory.CreateProperty("actorType", _actor.GetType().ToString());
-            if (_actorId == null) _actorId = propertyFactory.CreateProperty("actorId", _actor.Id.ToString());
+            _actorType = _actorType ?? propertyFactory.CreateProperty("actorType", _actor.GetType().ToString());
+            _actorId = _actorId ?? propertyFactory.CreateProperty("actorId", _actor.Id.ToString());
 
             logEvent.AddPropertyIfAbsent(_actorType);
             logEvent.AddPropertyIfAbsent(_actorId);

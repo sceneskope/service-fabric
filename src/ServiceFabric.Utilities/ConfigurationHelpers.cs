@@ -49,21 +49,20 @@ namespace ServiceFabric.Utilities
         public static int ReadConfigurationInt(this KeyedCollection<string, ConfigurationProperty> parameters, string parameterName)
         {
             var value = ReadConfigurationString(parameters, parameterName);
-            int result;
-            if (!int.TryParse(value, out result))
+            if (!int.TryParse(value, out var result))
             {
                 throw new ArgumentException($"Parameter '{parameterName}' can not be converted to an int ({value})");
             }
             return result;
         }
+
         public static bool ReadConfigurationBool(this ConfigurationSection configSection, string parameterName) =>
             ReadConfigurationBool(configSection.Parameters, parameterName);
 
         public static bool ReadConfigurationBool(this KeyedCollection<string, ConfigurationProperty> parameters, string parameterName)
         {
             var value = ReadConfigurationString(parameters, parameterName);
-            bool result;
-            if (!bool.TryParse(value, out result))
+            if (!bool.TryParse(value, out var result))
             {
                 throw new ArgumentException($"Parameter '{parameterName}' can not be converted to a bool ({value})");
             }
@@ -75,7 +74,6 @@ namespace ServiceFabric.Utilities
 
         public static ConfigurationSection ReadCustomConfigurationSection(this StatelessService service, string customConfigurationSectionName) =>
             ReadCustomConfigurationSection(service.Context.CodePackageActivationContext, customConfigurationSectionName);
-
 
         public static ConfigurationSection ReadCustomConfigurationSection(this ICodePackageActivationContext context, string customConfigurationSectionName)
         {

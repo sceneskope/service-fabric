@@ -15,7 +15,6 @@ namespace ServiceFabric.ApplicationInsights
         public string NodeName { get; }
         public string NodeType { get; }
 
-
         private ServiceFabricEnvironmentContextReader()
         {
             var context = FabricRuntime.GetNodeContext();

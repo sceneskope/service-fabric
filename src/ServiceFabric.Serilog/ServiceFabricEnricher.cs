@@ -20,7 +20,7 @@ namespace ServiceFabric.Serilog
 
         public virtual void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
-            if (_nodeName == null) _nodeName = propertyFactory.CreateProperty("nodeName", Context.NodeContext.NodeName);
+            _nodeName = _nodeName ?? propertyFactory.CreateProperty("nodeName", Context.NodeContext.NodeName);
             logEvent.AddPropertyIfAbsent(_nodeName);
         }
     }

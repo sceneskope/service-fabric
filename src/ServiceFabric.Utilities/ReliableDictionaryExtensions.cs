@@ -20,10 +20,10 @@ namespace ServiceFabric.Utilities
             where TKey : IComparable<TKey>, IEquatable<TKey>
         {
             var result = new List<TResult>();
-            var enumerable = await dictionary.CreateEnumerableAsync(tx);
+            var enumerable = await dictionary.CreateEnumerableAsync(tx).ConfigureAwait(false);
             using (var enumerator = enumerable.GetAsyncEnumerator())
             {
-                while (await enumerator.MoveNextAsync(cancel))
+                while (await enumerator.MoveNextAsync(cancel).ConfigureAwait(false))
                 {
                     var current = enumerator.Current;
                     if (filter(current.Key, current.Value))
@@ -35,7 +35,5 @@ namespace ServiceFabric.Utilities
             }
             return result;
         }
-
-
     }
 }

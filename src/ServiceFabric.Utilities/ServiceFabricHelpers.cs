@@ -13,7 +13,7 @@ namespace ServiceFabric.Utilities
         {
             using (var enumerator = enumerable.GetAsyncEnumerator())
             {
-                while (await enumerator.MoveNextAsync(cancel))
+                while (await enumerator.MoveNextAsync(cancel).ConfigureAwait(false))
                 {
                     action(enumerator.Current);
                 }
@@ -24,12 +24,11 @@ namespace ServiceFabric.Utilities
         {
             using (var enumerator = enumerable.GetAsyncEnumerator())
             {
-                while (await enumerator.MoveNextAsync(cancel))
+                while (await enumerator.MoveNextAsync(cancel).ConfigureAwait(false))
                 {
-                    await task(enumerator.Current, cancel);
+                    await task(enumerator.Current, cancel).ConfigureAwait(false);
                 }
             }
         }
-
     }
 }

@@ -12,13 +12,13 @@ namespace ServiceFabric.Serilog
     public abstract class SerilogStatefulService : StatefulService
     {
         protected ILogger Log { get; }
-        protected SerilogStatefulService(StatefulServiceContext serviceContext, ILogger logger) 
+        protected SerilogStatefulService(StatefulServiceContext serviceContext, ILogger logger)
             : base(serviceContext)
         {
             Log = logger.ForContext(new[] {  new StatefulServiceEnricher(serviceContext)});
         }
 
-        protected SerilogStatefulService(StatefulServiceContext serviceContext, IReliableStateManagerReplica reliableStateManagerReplica, ILogger logger) 
+        protected SerilogStatefulService(StatefulServiceContext serviceContext, IReliableStateManagerReplica reliableStateManagerReplica, ILogger logger)
             : base(serviceContext, reliableStateManagerReplica)
         {
             Log = logger.ForContext(new[] { new StatefulServiceEnricher(serviceContext) });
