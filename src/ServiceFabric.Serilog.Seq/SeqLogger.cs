@@ -6,6 +6,8 @@ using ServiceFabric.Utilities;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
+using System.Fabric;
+using System.Fabric.Health;
 
 namespace ServiceFabric.Serilog.Seq
 {
@@ -36,14 +38,16 @@ namespace ServiceFabric.Serilog.Seq
             var loggerConfiguration = new LoggerConfiguration();
             if (configurationProvider.HasConfiguration)
             {
-                var level = configurationProvider.GetValue("MinimumLevel");
-                if (!string.IsNullOrWhiteSpace(level) && Enum.TryParse<LogEventLevel>(level, true, out var minimumLevel))
-                {
-                    loggerConfiguration = loggerConfiguration.MinimumLevel.Is(minimumLevel);
-                }
-                else
+                var level = configurationProvider.TryGetValue("MinimumLevel");
+                if (string.IsNullOrWhiteSpace(level) || !Enum.TryParse<LogEventLevel>(level, true, out var minimumLevel))
                 {
                     minimumLevel = LogEventLevel.Information;
+                }
+
+                var periodMilliseconds = configurationProvider.TryGetValue("PeriodMilliseconds");
+                if (string.IsNullOrWhiteSpace(periodMilliseconds) || !int.TryParse(periodMilliseconds, out var period))
+                {
+                    period = 500;
                 }
 
                 var levelSwitch = new LoggingLevelSwitch(minimumLevel);
@@ -52,7 +56,7 @@ namespace ServiceFabric.Serilog.Seq
                 loggerConfiguration =
                     loggerConfiguration
                     .WriteTo.Seq(seqServer,
-                        period: TimeSpan.FromMilliseconds(500),
+                        period: TimeSpan.FromMilliseconds(period),
                         compact: true,
                         apiKey: apiKey,
                         controlLevelSwitch: levelSwitch);
