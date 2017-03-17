@@ -55,6 +55,7 @@ namespace ServiceFabric.Serilog.Seq
                 var apiKey = configurationProvider.TryGetValue("ApiKey");
                 loggerConfiguration =
                     loggerConfiguration
+                    .MinimumLevel.ControlledBy(levelSwitch)
                     .WriteTo.Seq(seqServer,
                         period: TimeSpan.FromMilliseconds(period),
                         compact: true,
