@@ -16,13 +16,16 @@ $branch = @{ $true = $env:APPVEYOR_REPO_BRANCH; $false = $(git symbolic-ref --sh
 $revision = @{ $true = "{0:00000}" -f [convert]::ToInt32("0" + $env:APPVEYOR_BUILD_NUMBER, 10); $false = "local" }[$env:APPVEYOR_BUILD_NUMBER -ne $NULL];
 $suffix = @{ $true = ""; $false = "$($branch.Substring(0, [math]::Min(10,$branch.Length)))-$revision"}[$branch -eq "master" -and $revision -ne "local"]
 
-$modifiedVersion = "1.0.0-dev.1"
 if (($env:APPVEYOR_BUILD_VERSION -ne $NULL) -and ($suffix -eq "")) {
     $modifiedVersion = $env:APPVEYOR_BUILD_VERSION
+} else {
+    $autoVersion = [math]::floor((New-TimeSpan $(Get-Date) $(Get-Date -month 1 -day 1 -year 2016 -hour 0 -minute 0 -second 0)).TotalMinutes * -1).ToString() + "-" + (Get-Date).ToString("ss")
+    $modifiedVersion = "1.3.0-beta-$autoVersion"
+    
 }
 
 dotnet --version
-dotnet restore
+dotnet restore /p:Version=$modifiedVersion
 if($LASTEXITCODE -ne 0) { exit 1 }
 dotnet build --configuration ${BuildConfiguration} /p:Version=$modifiedVersion
 if($LASTEXITCODE -ne 0) { exit 1 }
@@ -31,4 +34,12 @@ $projects = $(Get-ChildItem src -rec -filter *.csproj | ForEach-Object { $_.Full
 foreach ($project in $projects) {
     dotnet pack --no-build --configuration ${BuildConfiguration} --output ${ArtifactStagingDirectory} /p:Version=$modifiedVersion $project
     if($LASTEXITCODE -ne 0) { exit 1 }
+}
+
+if (($env:APPVEYOR_BUILD_VERSION -ne $NULL) -and ($suffix -eq "")) {
+    Write-Host "Built ok"
+} else {
+    Write-Host "Copying to local publish directory"
+    Copy-Item $ArtifactStagingDirectory\*.nupkg c:\users\nick\source\packages
+
 }

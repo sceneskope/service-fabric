@@ -13,9 +13,6 @@
     <PackageIconUrl>https://sceneskope.io/images/sceneskope-logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Serilog.Sinks.Seq" Version="3.2.0" />
-    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="2.4.164" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="2.5.216" />
   </ItemGroup>
 
 </Project>

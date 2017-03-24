@@ -12,7 +12,6 @@ namespace ServiceFabric.Tests
         [Fact]
         public void TestValidConfigurationEntry()
         {
-
         }
     }
 }
