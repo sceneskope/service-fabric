@@ -45,7 +45,7 @@ namespace ServiceFabric.Utilities
         }
 
         protected Task<List<TService>> AllRoPartitionsProxy => GetServiceListAsync(_allRoPartitionsProxyList, list => _allRoPartitionsProxyList = list, TargetReplicaSelector.RandomReplica);
-        protected Task<List<TService>> AllRwPartitionsProxy => GetServiceListAsync(_allRoPartitionsProxyList, list => _allRwPartitionsProxyList = list, TargetReplicaSelector.Default);
+        protected Task<List<TService>> AllRwPartitionsProxy => GetServiceListAsync(_allRwPartitionsProxyList, list => _allRwPartitionsProxyList = list, TargetReplicaSelector.Default);
 
         private async Task<List<TService>> GetServiceListAsync(List<TService> list, Action<List<TService>> setter, TargetReplicaSelector selector)
         {
