@@ -1,0 +1,17 @@
+<Project>
+<PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <Copyright>SceneSkope © 2016, 2017</Copyright>
+    <Authors>nick.randell@sceneskope.com</Authors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PackageIconUrl>https://sceneskope.io/images/sceneskope-logo.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+</PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Roslynator.Analyzers" Version="1.3.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
