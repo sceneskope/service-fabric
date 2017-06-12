@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Fabric;
-using System.Linq;
-using System.Threading.Tasks;
-using Serilog.Core;
+﻿using Serilog.Core;
 using Serilog.Events;
+using System.Fabric;
 
 namespace ServiceFabric.Serilog
 {
@@ -23,7 +19,7 @@ namespace ServiceFabric.Serilog
         {
             base.Enrich(logEvent, propertyFactory);
 
-            _version = _version ?? propertyFactory.CreateProperty("version", Context.CodePackageActivationContext.CodePackageVersion);
+            _version = _version ?? propertyFactory.CreateProperty("serviceManifestVersion", Context.CodePackageActivationContext.GetServiceManifestVersion());
             _serviceName = _serviceName ?? propertyFactory.CreateProperty("serviceName", Context.ServiceName);
             _partitionId = _partitionId ?? propertyFactory.CreateProperty("partitionId", Context.PartitionId);
             _applicationName = _applicationName ?? propertyFactory.CreateProperty("applicationName", Context.CodePackageActivationContext.ApplicationName);
