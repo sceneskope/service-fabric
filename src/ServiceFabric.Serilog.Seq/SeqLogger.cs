@@ -15,6 +15,8 @@ namespace ServiceFabric.Serilog.Seq
     {
         public static ILogger DefaultLogger { get; } = CreaterDefaultLogger();
 
+        public static LoggingLevelSwitch LevelSwitch { get; private set; }
+
         private static ILogger CreaterDefaultLogger()
         {
             var configurationProvider = new FabricConfigurationProvider("SeqConfig");
@@ -50,17 +52,17 @@ namespace ServiceFabric.Serilog.Seq
                     period = 500;
                 }
 
-                var levelSwitch = new LoggingLevelSwitch(minimumLevel);
+                LevelSwitch = LevelSwitch ?? new LoggingLevelSwitch(minimumLevel);
                 var seqServer = configurationProvider.GetValue("SeqServer");
                 var apiKey = configurationProvider.TryGetValue("ApiKey");
                 loggerConfiguration =
                     loggerConfiguration
-                    .MinimumLevel.ControlledBy(levelSwitch)
+                    .MinimumLevel.ControlledBy(LevelSwitch)
                     .WriteTo.Seq(seqServer,
                         period: TimeSpan.FromMilliseconds(period),
                         compact: true,
                         apiKey: apiKey,
-                        controlLevelSwitch: levelSwitch);
+                        controlLevelSwitch: LevelSwitch);
             }
             return loggerConfiguration;
         }
