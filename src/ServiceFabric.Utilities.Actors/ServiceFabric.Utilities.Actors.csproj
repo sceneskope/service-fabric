@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="2.6.210" />
+    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="2.6.220" />
   </ItemGroup>
 
 </Project>
