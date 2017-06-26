@@ -36,11 +36,16 @@ namespace ServiceFabric.Utilities
         {
             using (var tx = stateManager.CreateTransaction())
             {
-                while (count-- > 0)
-                {
-                    await queue.TryDequeueAsync(tx).ConfigureAwait(false);
-                }
+                await ClearEntriesAsync(queue, tx, count).ConfigureAwait(false);
                 await tx.CommitAsync().ConfigureAwait(false);
+            }
+        }
+
+        public static async Task ClearEntriesAsync<T>(this IReliableQueue<T> queue, ITransaction tx, int count)
+        {
+            while (count-- > 0)
+            {
+                await queue.TryDequeueAsync(tx).ConfigureAwait(false);
             }
         }
     }
