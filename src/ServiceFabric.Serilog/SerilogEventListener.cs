@@ -41,6 +41,10 @@ namespace ServiceFabric.Serilog
 
         protected override void OnEventWritten(EventWrittenEventArgs eventData)
         {
+            if (_logger == null)
+            {
+                return;
+            }
             var properties = new List<LogEventProperty>
             {
                 new LogEventProperty("etwEventId", new ScalarValue(eventData.EventId)),
