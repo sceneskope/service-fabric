@@ -53,7 +53,7 @@ namespace ServiceFabric.Utilities
             }
             else
             {
-                value = default;
+                value = null;
                 return false;
             }
         }
