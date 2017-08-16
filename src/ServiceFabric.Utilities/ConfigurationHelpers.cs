@@ -43,6 +43,21 @@ namespace ServiceFabric.Utilities
             }
         }
 
+        public static bool TryReadConfiguration(this KeyedCollection<string, ConfigurationProperty> parameters, string parmaeterName,
+            out ConfigurationProperty value)
+        {
+            if (parameters.Contains(parmaeterName))
+            {
+                value = parameters[parmaeterName];
+                return true;
+            }
+            else
+            {
+                value = default;
+                return false;
+            }
+        }
+
         public static int ReadConfigurationInt(this ConfigurationSection configSection, string parameterName) =>
             ReadConfigurationInt(configSection.Parameters, parameterName);
 

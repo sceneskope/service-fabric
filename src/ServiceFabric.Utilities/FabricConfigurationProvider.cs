@@ -29,6 +29,9 @@ namespace ServiceFabric.Utilities
         public string GetValue(string name) => _configurationProperties.ReadConfigurationString(name);
         public string TryGetValue(string name) => _configurationProperties.TryReadConfigurationString(name);
 
+        public bool TryGetValue(string name, out ConfigurationProperty configurationProperty) =>
+            _configurationProperties.TryReadConfiguration(name, out configurationProperty);
+
         private void UseConfiguration(ConfigurationPackage configPackage, string configurationSectionName)
         {
             if (!configPackage.Settings.Sections.Contains(configurationSectionName))
