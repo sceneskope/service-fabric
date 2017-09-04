@@ -5,13 +5,20 @@
     <Copyright>SceneSkope © 2016, 2017</Copyright>
     <Authors>nick.randell@sceneskope.com</Authors>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
     <PackageIconUrl>https://sceneskope.io/images/sceneskope-logo.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <LangVersion>latest</LangVersion>
+    <VersionPrefix>2.9.0</VersionPrefix>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Roslynator.Analyzers" Version="1.4.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(IsTestProject)' != 'true' and '$(IsPackable)' != 'false'">
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 </Project>

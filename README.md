@@ -3,6 +3,11 @@ Service Fabric utilities
 
 ## Various utilities for adding logging and other functionality to service fabric
 
+[![Build status](https://ci.appveyor.com/api/projects/status/nt97j90bbfeu40q0?svg=true)](https://ci.appveyor.com/api/projects/status/nt97j90bbfeu40q0/branch/master?svg=true)
+
+[![NuGet](https://img.shields.io/nuget/v/SceneSkope.Utilities.svg)](https://www.nuget.org/packages/ServiceFabric.Utilities/)
+[![MyGet CI](https://img.shields.io/myget/sceneskope-ci/v/ServiceFabric.Utilities.svg)](http://myget.org/gallery/sceneskope-ci)
+
 To use:
 
 Add reference to ServiceFabric.XXX nuget packages
