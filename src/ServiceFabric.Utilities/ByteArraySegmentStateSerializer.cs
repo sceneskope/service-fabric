@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.ServiceFabric.Data;
 
-namespace ServiceFabric.Bond
+namespace ServiceFabric.Utilities
 {
     public sealed class ByteArraySegmentStateSerializer : IStateSerializer<ArraySegment<byte>>
     {

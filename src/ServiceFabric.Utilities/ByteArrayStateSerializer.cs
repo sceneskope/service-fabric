@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceFabric.Bond
+namespace ServiceFabric.Utilities
 {
     public class ByteArrayStateSerializer : IStateSerializer<byte[]>
     {
