@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6EB97861-65C9-4685-93CC-5E2350DB072C}"
 EndProject
@@ -12,7 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		directory.build.props = directory.build.props
 		nuget.config = nuget.config
 		README.md = README.md
-		semver.txt = semver.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F4BDEA28-B4EC-46C8-B500-231742F03DE1}"
@@ -31,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceFabric.Actors.Serilo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceFabric.Utilities.Actors", "src\ServiceFabric.Utilities.Actors\ServiceFabric.Utilities.Actors.csproj", "{98A9209D-5469-4316-99FE-E4967CD22CE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceFabric.Bond", "src\ServiceFabric.Bond\ServiceFabric.Bond.csproj", "{625A1E8B-A6B2-45E0-B6A1-AC0B6ECAE35F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceFabric.Bond", "src\ServiceFabric.Bond\ServiceFabric.Bond.csproj", "{625A1E8B-A6B2-45E0-B6A1-AC0B6ECAE35F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,5 +83,8 @@ Global
 		{B396F361-F8B8-4589-A6A2-E98C0C0532B3} = {6EB97861-65C9-4685-93CC-5E2350DB072C}
 		{98A9209D-5469-4316-99FE-E4967CD22CE6} = {6EB97861-65C9-4685-93CC-5E2350DB072C}
 		{625A1E8B-A6B2-45E0-B6A1-AC0B6ECAE35F} = {6EB97861-65C9-4685-93CC-5E2350DB072C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0699C66D-CC3B-4A86-B080-C92F7D343BCE}
 	EndGlobalSection
 EndGlobal
