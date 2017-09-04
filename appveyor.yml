@@ -1,4 +1,12 @@
+version: '{build}'
+
+pull_requests:
+    do_not_increment_build_number: true
+
 image: Visual Studio 2017
+
+init:
+  - git config --global core.autocrlf input
 
 environment:
   # Set the DOTNET_SKIP_FIRST_TIME_EXPERIENCE environment variable to stop wasting time caching packages
@@ -6,19 +14,52 @@ environment:
   # Disable sending usage data to Microsoft
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
+nuget:
+   disable_publish_on_pr: true
+
 build_script:
-- ps: .\build.ps1 -BuildNumber "$env:APPVEYOR_BUILD_NUMBER" -RunTests $true
+- ps: .\build.ps1 -RunTests $true
 
 test: off
 
 artifacts:
 - path: .\.nupkgs\*.nupkg
+  name: NuGet
+
 
 deploy:
+  # All builds go to myget
+- provider: NuGet
+  server: https://www.myget.org/F/sceneskope-ci/api/v2/package
+  api_key:
+    secure: 40vHIJA6fQxaD2DKcElD5iWt0Bsjl2TvgKVCK3XZSA9NgbGyXoGzC5lRSaA0O6V3
+  skip_symbols: true
+  on:
+    branch: /^(master|dev)$/
+
+  # Dev builds to nuget with prefix
 - provider: NuGet
   api_key:
     secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
   skip_symbols: true
   on:
-    branch: /^(master|dev)$/
+    branch: dev
 
+  # Release builds to nuget
+- provider: NuGet
+  api_key:
+    secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
+  skip_symbols: true
+  on:
+    branch: master
+    appveyor_repo_tag: true
+
+  # Also release builds to github
+- provider: GitHub
+  auth_token:
+    secure: wyRf/wHvY67t+0Lni9CUlbQ77RpieO1OOAN4f47vSwqgxAx9KCfAlH6iMbJYl4xh
+  artifact: /Sceneskope.*\.nupkg/
+  on:
+    branch: master
+    appveyor_repo_tag: true
+  
