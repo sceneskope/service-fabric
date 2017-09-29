@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog.Sinks.Seq" Version="3.3.3" />
-    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="2.7.198" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="3.4.0" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="3.0.211-preview" />
   </ItemGroup>
 
 </Project>

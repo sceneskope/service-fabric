@@ -18,7 +18,7 @@ namespace ServiceFabric.Serilog
             Log = logger.ForContext(new[] {  new StatefulServiceEnricher(serviceContext)});
         }
 
-        protected SerilogStatefulService(StatefulServiceContext serviceContext, IReliableStateManagerReplica reliableStateManagerReplica, ILogger logger)
+        protected SerilogStatefulService(StatefulServiceContext serviceContext, IReliableStateManagerReplica2 reliableStateManagerReplica, ILogger logger)
             : base(serviceContext, reliableStateManagerReplica)
         {
             Log = logger.ForContext(new[] { new StatefulServiceEnricher(serviceContext) });
