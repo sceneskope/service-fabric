@@ -26,6 +26,12 @@ artifacts:
 - path: .\.nupkgs\*.nupkg
   name: NuGet
 
+deploy_script:
+  - appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+  - ps: .\nuget.exe setApiKey $env:api_key -source https://www.nuget.org | out-null
+  - ps: ($artifacts.values | Where-Object { $_.path -like '*.nupkg' }) | foreach-object {nuget.exe push $_.path -Source https://www.nuget.org/api/v2/package}
+  on:
+    branch: dev
 
 deploy:
   # All builds go to myget
@@ -38,12 +44,12 @@ deploy:
     branch: /^(master|dev)$/
 
   # Dev builds to nuget with prefix
-- provider: NuGet
-  api_key:
-    secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
-  skip_symbols: true
-  on:
-    branch: dev
+# - provider: NuGet
+#   api_key:
+#     secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
+#   skip_symbols: true
+#   on:
+#     branch: dev
 
   # Release builds to nuget
 - provider: NuGet
