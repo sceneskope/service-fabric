@@ -28,20 +28,15 @@ artifacts:
 - path: .\.nupkgs\*.nupkg
   name: NuGet
 
-deploy_script:
- - appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
- - ps: (foreach ($artifactName in $artifacts.keys) {Write-Host $artifactName; Write-Host $artifacts[$artifactName] }) 
- - ps: ($artifacts.values | Where-Object {($_.path -like '.nupkgs\*.nupkg') -and  !($_.path -like '.nupkgs\*.symbols.nupkg')}) | foreach-object {nuget.exe push $_.path -Source https://www.nuget.org/api/v2/package -ApiKey $env:api_key; if ($lastexitcode -ne 0) {throw}}
-
 deploy:
   # All builds go to myget
-#- provider: NuGet
-#  server: https://www.myget.org/F/sceneskope-ci/api/v2/package
-#  api_key:
-#    secure: 40vHIJA6fQxaD2DKcElD5iWt0Bsjl2TvgKVCK3XZSA9NgbGyXoGzC5lRSaA0O6V3
-#  skip_symbols: true
-#  on:
-#    branch: /^(master|dev)$/
+- provider: NuGet
+  server: https://www.myget.org/F/sceneskope-ci/api/v2/package
+  api_key:
+    secure: 40vHIJA6fQxaD2DKcElD5iWt0Bsjl2TvgKVCK3XZSA9NgbGyXoGzC5lRSaA0O6V3
+  skip_symbols: true
+  on:
+    branch: /^(master|dev)$/
 
   # Dev builds to nuget with prefix
 #- provider: NuGet
