@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 
-namespace ServiceFabric.Tests
+namespace SceneSkope.ServiceFabric.Tests
 {
     public class ConfigurationTests
     {

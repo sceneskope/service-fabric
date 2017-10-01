@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Service Fabric Actor Seq Logging</Description>
+    <PackageTags>ServiceFabric;Serilog</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="3.0.211-preview" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SceneSkope.ServiceFabric.Serilog\SceneSkope.ServiceFabric.Serilog.csproj" />
+  </ItemGroup>
+
+</Project>
