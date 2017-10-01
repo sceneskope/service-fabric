@@ -28,21 +28,21 @@ artifacts:
 
 deploy:
   # All builds go to myget
-- provider: NuGet
-  server: https://www.myget.org/F/sceneskope-ci/api/v2/package
-  api_key:
-    secure: 40vHIJA6fQxaD2DKcElD5iWt0Bsjl2TvgKVCK3XZSA9NgbGyXoGzC5lRSaA0O6V3
-  skip_symbols: true
-  on:
-    branch: /^(master|dev)$/
+#- provider: NuGet
+#  server: https://www.myget.org/F/sceneskope-ci/api/v2/package
+#  api_key:
+#    secure: 40vHIJA6fQxaD2DKcElD5iWt0Bsjl2TvgKVCK3XZSA9NgbGyXoGzC5lRSaA0O6V3
+#  skip_symbols: true
+#  on:
+#    branch: /^(master|dev)$/
 
   # Dev builds to nuget with prefix
-# - provider: NuGet
-#   api_key:
-#     secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
-#   skip_symbols: true
-#   on:
-#     branch: dev
+- provider: NuGet
+  api_key:
+    secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
+  skip_symbols: true
+  on:
+    branch: dev
 
   # Release builds to nuget
 - provider: NuGet
