@@ -30,11 +30,7 @@ artifacts:
 
 deploy_script:
  - appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
- - ps: 
-   (foreach ($artifactName in $artifacts.keys) {
-     Write-Host $artifactName
-      $artifacts[$artifactName]
-   }) 
+ - ps: (foreach ($artifactName in $artifacts.keys) {Write-Host $artifactName; Write-Host $artifacts[$artifactName] }) 
  - ps: ($artifacts.values | Where-Object {($_.path -like '.nupkgs\*.nupkg') -and  !($_.path -like '.nupkgs\*.symbols.nupkg')}) | foreach-object {nuget.exe push $_.path -Source https://www.nuget.org/api/v2/package -ApiKey $env:api_key; if ($lastexitcode -ne 0) {throw}}
 
 deploy:
