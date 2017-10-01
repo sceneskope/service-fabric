@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
     <Copyright>SceneSkope © 2016, 2017</Copyright>
     <Authors>nick.randell@sceneskope.com</Authors>
