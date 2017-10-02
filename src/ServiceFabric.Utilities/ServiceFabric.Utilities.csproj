@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Description>SceneSkope Service Fabric Utilities</Description>
     <PackageTags>ServiceFabric</PackageTags>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
