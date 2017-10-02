@@ -1,13 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
-    <PlatformTarget>x64</PlatformTarget>
+    <Description>Service Fabric Bond Support</Description>
+    <PackageTags>ServiceFabric;Bond</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Bond.Core.CSharp" Version="6.0.0" />
     <PackageReference Include="Microsoft.ServiceFabric.Data" Version="2.8.211" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceFabric.Utilities\ServiceFabric.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
