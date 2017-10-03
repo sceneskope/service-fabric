@@ -16,7 +16,6 @@ namespace ServiceFabric.Utilities
             return Task.FromResult(true);
         }
 
-        [Obsolete("Uses obsolete state serializer", false)]
         public void RegisterStateSerializer<T>(IStateSerializer<T> serializer) =>
             _registrations.Add(sm => sm.TryAddStateSerializer(serializer));
 
