@@ -82,9 +82,9 @@ namespace ServiceFabric.Utilities
             throw new InvalidOperationException(reason);
         }
 
-        public Task<string> TryReadConfigurationAsync(FabricConfigurationProvider config, string name, Action<string> onFailure, CancellationToken ct)
+        public Task<string> TryReadConfigurationAsync(string name, Action<string> onFailure, CancellationToken ct)
         {
-            var value = config.TryGetValue(name);
+            var value = TryGetValue(name);
             if (string.IsNullOrWhiteSpace(value))
             {
                 return RejectConfigurationAsync($"No configuration for {name}", onFailure, ct);
