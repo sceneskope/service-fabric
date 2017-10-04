@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Fabric;
 using System.Fabric.Description;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ServiceFabric.Utilities
@@ -71,6 +72,26 @@ namespace ServiceFabric.Utilities
                     value = defaultValue;
                 }
                 return value;
+            }
+        }
+
+        public async Task<string> RejectConfigurationAsync(string reason, Action<string> onFailure, CancellationToken ct)
+        {
+            onFailure(reason);
+            await Task.Delay(5000, ct).ConfigureAwait(false);
+            throw new InvalidOperationException(reason);
+        }
+
+        public Task<string> TryReadConfigurationAsync(FabricConfigurationProvider config, string name, Action<string> onFailure, CancellationToken ct)
+        {
+            var value = config.TryGetValue(name);
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return RejectConfigurationAsync($"No configuration for {name}", onFailure, ct);
+            }
+            else
+            {
+                return Task.FromResult(value);
             }
         }
     }
