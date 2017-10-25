@@ -13,6 +13,8 @@ environment:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   # Disable sending usage data to Microsoft
   DOTNET_CLI_TELEMETRY_OPTOUT: true
+  api_key:
+    secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
 
 nuget:
    disable_publish_on_pr: true
@@ -26,6 +28,9 @@ artifacts:
 - path: .\.nupkgs\*.nupkg
   name: NuGet
 
+#deploy_script: 
+#  - appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+#  - ps: ($artifacts.values | Where-Object {($_.path -like '*.nupkg') -and !($_.path -like '*.symbols.nupkg')}) | foreach-object {nuget.exe push $_.path -Source https://www.nuget.org/api/v2/package -ApiKey api_key; if ($lastexitcode -ne 0) {throw}}
 
 deploy:
   # All builds go to myget

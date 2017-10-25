@@ -28,6 +28,20 @@ namespace ServiceFabric.Utilities
             return this;
         }
 
+        public unsafe Fnv1A Compute(byte* address, int count)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                unchecked
+                {
+                    _hash ^= *address;
+                    _hash *= prime;
+                    address++;
+                }
+            }
+            return this;
+        }
+
         public Fnv1A Compute(string value)
         {
             var bytes = Encoding.UTF8.GetBytes(value);
@@ -51,6 +65,17 @@ namespace ServiceFabric.Utilities
         }
 
         public Fnv1A Compute(Guid guid) => Compute(guid.ToByteArray());
+
+        public unsafe Fnv1A Compute(short value) => Compute((byte*)&value, sizeof(short));
+        public unsafe Fnv1A Compute(int value) => Compute((byte*)&value, sizeof(int));
+        public unsafe Fnv1A Compute(long value) => Compute((byte*)&value, sizeof(long));
+
+        public unsafe Fnv1A Compute(ushort value) => Compute((byte*)&value, sizeof(ushort));
+        public unsafe Fnv1A Compute(uint value) => Compute((byte*)&value, sizeof(uint));
+        public unsafe Fnv1A Compute(ulong value) => Compute((byte*)&value, sizeof(ulong));
+
+        public unsafe Fnv1A Compute(float value) => Compute((byte*)&value, sizeof(float));
+        public unsafe Fnv1A Compute(double value) => Compute((byte*)&value, sizeof(double));
 
         public static ulong ComputeAll(params Guid[] values)
         {

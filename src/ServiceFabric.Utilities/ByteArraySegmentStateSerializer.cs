@@ -6,20 +6,24 @@ namespace ServiceFabric.Utilities
 {
     public sealed class ByteArraySegmentStateSerializer : IStateSerializer<ArraySegment<byte>>
     {
-        public ArraySegment<byte> Read(BinaryReader binaryReader)
+        public static ArraySegment<byte> ReadArraySegment(BinaryReader binaryReader)
         {
-            var count = binaryReader.ReadInt32();
-            var bytes = binaryReader.ReadBytes(count);
-            return new ArraySegment<byte>(bytes);
+            var bytes = (int)binaryReader.ReadByte();
+            var buffer = binaryReader.ReadBytes(bytes);
+            return new ArraySegment<byte>(buffer, 0, bytes);
         }
+
+        public static void WriteArraySegment(ArraySegment<byte> segment, BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write(segment.Count);
+            binaryWriter.Write(segment.Array, segment.Offset, segment.Count);
+        }
+
+        public ArraySegment<byte> Read(BinaryReader binaryReader) => ReadArraySegment(binaryReader);
 
         public ArraySegment<byte> Read(ArraySegment<byte> baseValue, BinaryReader binaryReader) => Read(binaryReader);
 
-        public void Write(ArraySegment<byte> value, BinaryWriter binaryWriter)
-        {
-            binaryWriter.Write(value.Count);
-            binaryWriter.Write(value.Array, value.Offset, value.Count);
-        }
+        public void Write(ArraySegment<byte> value, BinaryWriter binaryWriter) => WriteArraySegment(value, binaryWriter);
 
         public void Write(ArraySegment<byte> baseValue, ArraySegment<byte> targetValue, BinaryWriter binaryWriter) =>
             Write(targetValue, binaryWriter);

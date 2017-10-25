@@ -87,7 +87,7 @@ namespace ServiceFabric.Utilities
 
         protected async Task<T> ReadOnlyServiceFor<T>(ServicePartitionKey key, Func<TService, Task<T>> func)
         {
-            var service = ServiceProxy.Create<TService>(_uri, key, listenerName: _listenerName, targetReplicaSelector: TargetReplicaSelector.RandomReplica);
+            var service = ServiceProxy.Create<TService>(_uri, key, targetReplicaSelector: TargetReplicaSelector.RandomReplica, listenerName: _listenerName);
             try
             {
                 return await func(service).ConfigureAwait(false);
@@ -101,7 +101,7 @@ namespace ServiceFabric.Utilities
 
         protected async Task ReadOnlyServiceFor(ServicePartitionKey key, Func<TService, Task> func)
         {
-            var service = ServiceProxy.Create<TService>(_uri, key, listenerName: _listenerName, targetReplicaSelector: TargetReplicaSelector.RandomReplica);
+            var service = ServiceProxy.Create<TService>(_uri, key, targetReplicaSelector: TargetReplicaSelector.RandomReplica, listenerName: _listenerName);
             try
             {
                 await func(service).ConfigureAwait(false);

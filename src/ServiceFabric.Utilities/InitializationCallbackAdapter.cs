@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Data;
 
-namespace ServiceFabric.Bond
+namespace ServiceFabric.Utilities
 {
     public sealed class InitializationCallbackAdapter
     {
@@ -16,11 +16,6 @@ namespace ServiceFabric.Bond
             return Task.FromResult(true);
         }
 
-        [Obsolete("Uses obsolete state serializer", false)]
-        public void RegisterBondStateSerializer<T>() =>
-            RegisterStateSerializer<T>(new BondStateSerializer<T>());
-
-        [Obsolete("Uses obsolete state serializer", false)]
         public void RegisterStateSerializer<T>(IStateSerializer<T> serializer) =>
             _registrations.Add(sm => sm.TryAddStateSerializer(serializer));
 
