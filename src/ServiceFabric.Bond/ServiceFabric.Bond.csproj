@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bond.Core.CSharp" Version="7.0.0" />
+    <PackageReference Include="Bond.Core.CSharp" Version="6.0.0" />
     <PackageReference Include="Microsoft.ServiceFabric.Data" Version="2.8.219" />
   </ItemGroup>
 
