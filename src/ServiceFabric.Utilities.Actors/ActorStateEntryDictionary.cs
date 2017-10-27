@@ -1,10 +1,6 @@
-﻿using Microsoft.ServiceFabric.Actors.Runtime;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Collections;
+using Microsoft.ServiceFabric.Actors.Runtime;
 
 namespace ServiceFabric.Utilities.Actors
 {
@@ -56,12 +52,19 @@ namespace ServiceFabric.Utilities.Actors
 
         public bool ContainsKey(string key) => _dictionary.ContainsKey(ToStateName(key));
 
-        public async Task<bool> RemoveAsync(string key)
+        public async Task<bool> TryRemoveAsync(string key)
         {
             var stateName = ToStateName(key);
             var removed = await _stateManager.TryRemoveStateAsync(stateName).ConfigureAwait(false);
             _dictionary.Remove(key);
             return removed;
+        }
+
+        public async Task RemoveAsync(string key)
+        {
+            var stateName = ToStateName(key);
+            await _stateManager.RemoveStateAsync(stateName).ConfigureAwait(false);
+            _dictionary.Remove(key);
         }
 
         public bool TryGetValue(string key, out ActorStateEntry<T> value) => _dictionary.TryGetValue(key, out value);
@@ -92,6 +95,13 @@ namespace ServiceFabric.Utilities.Actors
         public ActorStateEntry<T> this[string key]
         {
             get => _dictionary[key];
+        }
+
+        public async Task AddAsync(string key, T record)
+        {
+            var state = new ActorStateEntry<T>(_stateManager, ToStateName(key));
+            _dictionary.Add(key, state);
+            await state.SetAsync(record).ConfigureAwait(false);
         }
     }
 }
