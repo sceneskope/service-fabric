@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.ServiceFabric.Data;
+using System;
 using System.IO;
-using Microsoft.ServiceFabric.Data;
 
 namespace ServiceFabric.Utilities
 {
@@ -8,7 +8,7 @@ namespace ServiceFabric.Utilities
     {
         public static ArraySegment<byte> ReadArraySegment(BinaryReader binaryReader)
         {
-            var bytes = (int)binaryReader.ReadByte();
+            var bytes = binaryReader.ReadInt32();
             var buffer = binaryReader.ReadBytes(bytes);
             return new ArraySegment<byte>(buffer, 0, bytes);
         }
