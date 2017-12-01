@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <LangVersion>latest</LangVersion>
-    <VersionPrefix>3.3.0</VersionPrefix>
+    <VersionPrefix>3.3.1</VersionPrefix>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
