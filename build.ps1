@@ -3,22 +3,28 @@ param(
     [bool] $CreatePackages = $true,
     [bool] $RunTests = $true,
     [bool] $CopyLocal = $false,
-    [string] $Configuration = "Release"
+    [string] $Configuration = "Release",
+    [string] $BuildNumber
 )
 
 Push-Location $PSScriptRoot
 
+$envBranch = @{ $true = $env:APPVEYOR_REPO_BRANCH; $false = $env:BUILD_SOURCEBRANCHNAME}[$env:APPVEYOR_REPO_BRANCH -ne $NULL]
+$envBuildNumber = @{ $true = $env:APPVEYOR_BUILD_NUMBER; $false = $BuildNumber}[$env:APPVEYOR_BUILD_NUMBER -ne $NULL]
 $packageOutputFolder = "$PSScriptRoot\.nupkgs"
 
-$branch = @{ $true = $env:APPVEYOR_REPO_BRANCH; $false = $(git symbolic-ref --short -q HEAD) }[$env:APPVEYOR_REPO_BRANCH -ne $NULL];
+$branch = @{ $true = $envBranch; $false = $(git symbolic-ref --short -q HEAD) }[$envBranch -ne $NULL];
 $autoVersion = [math]::floor((New-TimeSpan $(Get-Date) $(Get-Date -month 1 -day 1 -year 2016 -hour 0 -minute 0 -second 0)).TotalMinutes * -1).ToString() + "-" + (Get-Date).ToString("ss")
-$revision = @{ $true = "{0:00000}" -f [convert]::ToInt32("0" + $env:APPVEYOR_BUILD_NUMBER, 10); $false = "local-$autoVersion" }[$env:APPVEYOR_BUILD_NUMBER -ne $NULL];
-$suffix = @{ $true = ""; $false = "$($branch.Substring(0, [math]::Min(10,$branch.Length)))-$revision"}[$branch -eq "master" -and $revision -ne "local"]
+$revision = @{ $true = "{0:00000}" -f [convert]::ToInt32("0" + $envBuildNumber, 10); $false = "0-local-$autoVersion" }[$envBuildNumber -ne $NULL -and $envBuildNumber -ne ""];
+$suffix = @{ $true = ""; $false = "$($branch.Substring(0, [math]::Min(10,$branch.Length)))-$revision"}[$branch -eq "master" -and -not $revision.StartsWith("local")]
 $packSuffix = @{ $true=""; $false="--version-suffix=$suffix"}[$suffix -eq ""]
 $commitHash = $(git rev-parse --short HEAD)
 $buildSuffix = @{ $true = "$($suffix)-$($commitHash)"; $false = "$($branch)-$($commitHash)" }[$suffix -ne ""]
 
-Write-Host "build: Package version suffix is $suffix"
+Write-Host "build: Branch is $branch"
+Write-host "build: Revision is $revision"
+Write-Host "build: Suffix is $suffix"
+Write-Host "build: Package version suffix is $packSuffix"
 Write-Host "build: Build version suffix is $buildSuffix" 
 Write-Host "build: Configuration = $Configuration"
 
