@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <LangVersion>latest</LangVersion>
-    <VersionPrefix>3.2.1</VersionPrefix>
+    <VersionPrefix>3.3.0</VersionPrefix>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <ItemGroup>
@@ -19,6 +19,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup Condition="'$(IsTestProject)' != 'true' and '$(IsPackable)' != 'false'">
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.4.0" PrivateAssets="All" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.6.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

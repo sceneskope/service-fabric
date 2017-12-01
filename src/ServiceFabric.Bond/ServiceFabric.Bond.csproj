@@ -14,10 +14,4 @@
     <ProjectReference Include="..\ServiceFabric.Utilities\ServiceFabric.Utilities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="SourceLink.Create.CommandLine">
-      <Version>2.5.0</Version>
-    </PackageReference>
-  </ItemGroup>
-
 </Project>
