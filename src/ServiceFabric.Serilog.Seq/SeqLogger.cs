@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ServiceFabric.Utilities;
-using Serilog;
+﻿using Serilog;
 using Serilog.Core;
 using Serilog.Events;
-using System.Fabric;
-using System.Fabric.Health;
+using ServiceFabric.Utilities;
+using System;
 
 namespace ServiceFabric.Serilog.Seq
 {
