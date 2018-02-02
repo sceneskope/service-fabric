@@ -12,7 +12,7 @@ namespace ServiceFabric.Utilities
 
         private readonly Random _rand = new Random();
         public Task HandleTimeout(Func<Task> handler, CancellationToken ct, Action<int> beforeDelayAction = null) =>
-            HandleTimeout(() => handler().ContinueWith(t => false), ct, beforeDelayAction);
+            HandleTimeout(() => handler().ContinueWith(_ => false), ct, beforeDelayAction);
 
         public async Task<T> HandleTimeout<T>(Func<Task<T>> handler, CancellationToken ct, Action<int> beforeDelayAction = null)
         {

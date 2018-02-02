@@ -1,13 +1,9 @@
-﻿using Microsoft.ServiceFabric.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Data;
 
 namespace ServiceFabric.Utilities
 {
-    public class LazyReliableState<T> where T : IReliableState
+    public class LazyReliableState<T> where T : class, IReliableState
     {
         public IReliableStateManager StateManager { get; }
         public string Name { get; }

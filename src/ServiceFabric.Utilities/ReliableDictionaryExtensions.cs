@@ -11,10 +11,12 @@ namespace ServiceFabric.Utilities
     public static class ReliableDictionaryExtensions
     {
         public static Task<List<TValue>> FilterDictionaryAsync<TKey, TValue>(this IReliableDictionary<TKey, TValue> dictionary, ITransaction tx, Func<TKey, TValue, bool> filter, CancellationToken cancel)
-            where TKey : IComparable<TKey>, IEquatable<TKey> => FilterDictionaryAsync(dictionary, tx, filter, (k, v) => v, cancel);
+            where TKey : IComparable<TKey>, IEquatable<TKey> => FilterDictionaryAsync(dictionary, tx, filter, (_, v) => v, cancel);
 
         public static Task<List<TValue>> FilterDictionaryAsync<TKey, TValue>(this IReliableDictionary<TKey, TValue> dictionary, ITransaction tx, CancellationToken cancel)
-            where TKey : IComparable<TKey>, IEquatable<TKey> => FilterDictionaryAsync(dictionary, tx, (k, v) => true, (k, v) => v, cancel);
+#pragma warning disable RCS1163 // Unused parameter.
+            where TKey : IComparable<TKey>, IEquatable<TKey> => FilterDictionaryAsync(dictionary, tx, (k,v) => true, (_, v) => v, cancel);
+#pragma warning restore RCS1163 // Unused parameter.
 
         public static async Task<List<TResult>> FilterDictionaryAsync<TKey, TValue, TResult>(this IReliableDictionary<TKey, TValue> dictionary, ITransaction tx, Func<TKey, TValue, bool> filter, Func<TKey, TValue, TResult> convert, CancellationToken cancel)
             where TKey : IComparable<TKey>, IEquatable<TKey>

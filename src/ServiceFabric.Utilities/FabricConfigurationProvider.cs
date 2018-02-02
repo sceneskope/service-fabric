@@ -17,7 +17,7 @@ namespace ServiceFabric.Utilities
         {
             if (string.IsNullOrWhiteSpace(configurationSectionName))
             {
-                throw new ArgumentNullException($"{nameof(configurationSectionName)}");
+                throw new ArgumentNullException(nameof(configurationSectionName));
             }
 
             var activationContext = FabricRuntime.GetActivationContext();
