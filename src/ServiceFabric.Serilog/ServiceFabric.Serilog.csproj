@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Serilog" Version="2.6.0" />
-    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="3.1.262" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services" Version="3.0.480" />
   </ItemGroup>
 
 </Project>
