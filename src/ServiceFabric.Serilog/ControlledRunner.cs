@@ -40,7 +40,7 @@ namespace ServiceFabric.Serilog
             var registered = ct.Register(() =>
             {
                 Log.Information("Cancellation requested. Waiting {Duration} for task to cancel", AbsoluteDelay);
-                Task.Delay(AbsoluteDelay, delayCancellationSource.Token).ContinueWith(delayTask => completedSource.SetResult(true));
+                Task.Delay(AbsoluteDelay, delayCancellationSource.Token).ContinueWith(_ => completedSource.SetResult(true));
             });
 
             return Task.WhenAny(runningTask, completedTask).ContinueWith(finished =>
