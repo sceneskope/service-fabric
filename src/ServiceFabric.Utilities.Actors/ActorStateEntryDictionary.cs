@@ -103,5 +103,27 @@ namespace ServiceFabric.Utilities.Actors
             _dictionary.Add(key, state);
             await state.SetAsync(record).ConfigureAwait(false);
         }
+
+        public async Task<bool> TryAddAsync(string key, T record)
+        {
+            var state = new ActorStateEntry<T>(_stateManager, ToStateName(key));
+            if (_dictionary.TryAdd(key, state))
+            {
+                await state.SetAsync(record).ConfigureAwait(false);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task SetAsync(string key, T record) 
+        {
+            var state = new ActorStateEntry<T>(_stateManager, ToStateName(key));
+            _dictionary[key] = state;
+            await state.SetAsync(record).ConfigureAwait(false);
+        }
+
     }
 }
