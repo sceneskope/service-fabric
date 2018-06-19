@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.ServiceFabric.Actors.Runtime;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Actors.Runtime;
 
 namespace ServiceFabric.Utilities.Actors
 {
-    public class ActorStateEntryDictionary<T>
+    public sealed class ActorStateEntryDictionary<T>
     {
         public static async Task<ActorStateEntryDictionary<T>> CreateAsync(IActorStateManager stateManager, string name)
         {
@@ -101,6 +101,27 @@ namespace ServiceFabric.Utilities.Actors
         {
             var state = new ActorStateEntry<T>(_stateManager, ToStateName(key));
             _dictionary.Add(key, state);
+            await state.SetAsync(record).ConfigureAwait(false);
+        }
+
+        public async Task<bool> TryAddAsync(string key, T record)
+        {
+            var state = new ActorStateEntry<T>(_stateManager, ToStateName(key));
+            if (_dictionary.TryAdd(key, state))
+            {
+                await state.SetAsync(record).ConfigureAwait(false);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task SetAsync(string key, T record)
+        {
+            var state = new ActorStateEntry<T>(_stateManager, ToStateName(key));
+            _dictionary[key] = state;
             await state.SetAsync(record).ConfigureAwait(false);
         }
     }

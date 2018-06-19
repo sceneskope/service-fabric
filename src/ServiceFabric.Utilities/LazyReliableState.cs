@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Data;
+﻿using Microsoft.ServiceFabric.Data;
+using System.Threading.Tasks;
 
 namespace ServiceFabric.Utilities
 {
@@ -7,6 +7,7 @@ namespace ServiceFabric.Utilities
     {
         public IReliableStateManager StateManager { get; }
         public string Name { get; }
+
         public LazyReliableState(IReliableStateManager stateManager, string name)
         {
             StateManager = stateManager;
