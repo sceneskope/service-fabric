@@ -11,6 +11,7 @@ namespace ServiceFabric.Utilities
         public int MaxRetryCount { get; set; } = int.MaxValue;
 
         private readonly Random _rand = new Random();
+
         public Task HandleTimeout(Func<Task> handler, CancellationToken ct, Action<int> beforeDelayAction = null) =>
             HandleTimeout(() => handler().ContinueWith(_ => false), ct, beforeDelayAction);
 

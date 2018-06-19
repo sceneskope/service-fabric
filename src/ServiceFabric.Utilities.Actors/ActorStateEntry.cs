@@ -19,6 +19,7 @@ namespace ServiceFabric.Utilities.Actors
         public Task<T> GetAsync() => _stateManager.GetStateAsync<T>(_name);
         public Task SetAsync(T value) => _stateManager.SetStateAsync(_name, value);
         public Task<ConditionalValue<T>> TryGetAsync() => _stateManager.TryGetStateAsync<T>(_name);
+
         public async Task<ConditionalValue<T>> TryRemoveAsync()
         {
             var value = await _stateManager.TryGetStateAsync<T>(_name).ConfigureAwait(false);
