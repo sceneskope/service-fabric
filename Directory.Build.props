@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <Copyright>SceneSkope © 2016, 2017, 2018</Copyright>
+    <Copyright>SceneSkope 2016, 2017, 2018</Copyright>
     <Authors>nick.randell@sceneskope.com</Authors>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
@@ -8,17 +8,19 @@
     <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <LangVersion>latest</LangVersion>
-    <VersionPrefix>5.0.0</VersionPrefix>
+    <VersionPrefix>5.1.0</VersionPrefix>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsTestProject)' != 'true' ">
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Roslynator.Analyzers" Version="1.9.0" PrivateAssets="All" />
+    <PackageReference Include="ErrorProne.NET" Version="0.1.5898.41180" PrivateAssets="All" />
+    <PackageReference Include="ErrorProne.NET.Structs" Version="0.1.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="'$(IsTestProject)' != 'true' and '$(IsPackable)' != 'false'">
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.2" PrivateAssets="All" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>
