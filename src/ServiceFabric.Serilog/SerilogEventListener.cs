@@ -67,7 +67,9 @@ namespace ServiceFabric.Serilog
             }
             catch (Exception ex)
             {
-                escapedMessage = $"<error> {ex.Message}";
+#pragma warning disable ERP023 // Only ex.Message property was observed in exception block!
+                escapedMessage = "<error> " + ex.Message;
+#pragma warning restore ERP023 // Only ex.Message property was observed in exception block!
             }
 
             var messageTemplate = _parser.Parse(escapedMessage);
