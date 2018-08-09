@@ -8,6 +8,18 @@ namespace ServiceFabric.Utilities
 {
     public class ServiceFabricRetryHandler
     {
+        public static Task HandleAsync(Func<CancellationToken, Task> executor, CancellationToken serviceCancellationToken)
+        {
+            var handler = new ServiceFabricRetryHandler(serviceCancellationToken);
+            return handler.HandleAsync(executor);
+        }
+
+        public static Task<TResult> CallAsync<TResult>(Func<CancellationToken, Task<TResult>> executor, CancellationToken serviceCancellationToken)
+        {
+            var handler = new ServiceFabricRetryHandler(serviceCancellationToken);
+            return handler.CallAsync(executor);
+        }
+
         public CancellationToken ServiceCancellationToken { get; }
         private Random JitterProvider { get; } = new Random();
         private int JitterFromMs { get; }
