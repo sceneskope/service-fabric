@@ -8,7 +8,7 @@
     <PackageProjectUrl>https://github.com/sceneskope/service-fabric</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <LangVersion>latest</LangVersion>
-    <VersionPrefix>5.1.0</VersionPrefix>
+    <VersionPrefix>5.2.0</VersionPrefix>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsTestProject)' != 'true' ">
