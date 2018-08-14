@@ -78,38 +78,51 @@ namespace ServiceFabric.Utilities
                     ServiceCancellationToken.ThrowIfCancellationRequested();
                     if (!IsTransientException(ex, transientExceptionChecker))
                     {
-                        return;
+                        throw;
                     }
                 }
                 await RandomDelay().ConfigureAwait(continueOnCapturedContext);
             }
         }
 
-        public Task<TResult> CallAsync<TResult>(Func<CancellationToken, Task<TResult>> executor, bool continueOnCapturedContext = false) =>
-            TryCallAsync(executor, continueOnCapturedContext, null)
-            .ContinueWith(cv => cv.Result.Value,
-                TaskContinuationOptions.OnlyOnRanToCompletion | TaskContinuationOptions.ExecuteSynchronously);
-
-        public async Task<ConditionalValue<TResult>> TryCallAsync<TResult>(Func<CancellationToken, Task<TResult>> executor, bool continueOnCapturedContext = false, Func<Exception, bool> transientExceptionChecker = null)
+        public async Task<TResult> CallAsync<TResult>(Func<CancellationToken, Task<TResult>> executor, bool continueOnCapturedContext = false, Func<Exception, bool> transientExceptionChecker = null)
         {
             while (true)
             {
                 ServiceCancellationToken.ThrowIfCancellationRequested();
                 try
                 {
-                    var result = await executor(ServiceCancellationToken).ConfigureAwait(continueOnCapturedContext);
-                    return new ConditionalValue<TResult>(true, result);
+                    return await executor(ServiceCancellationToken).ConfigureAwait(continueOnCapturedContext);
                 }
                 catch (Exception ex)
                 {
                     ServiceCancellationToken.ThrowIfCancellationRequested();
                     if (!IsTransientException(ex, transientExceptionChecker))
                     {
-                        return new ConditionalValue<TResult>();
+                        throw;
                     }
                 }
                 await RandomDelay().ConfigureAwait(continueOnCapturedContext);
             }
         }
+        // TryCallAsync(executor, continueOnCapturedContext, null)
+        // .ContinueWith(cv => cv.Result.Value,
+        //     TaskContinuationOptions.OnlyOnRanToCompletion | TaskContinuationOptions.ExecuteSynchronously);
+
+        public Task<ConditionalValue<TResult>> TryCallAsync<TResult>(Func<CancellationToken, Task<TResult>> executor, bool continueOnCapturedContext = false, Func<Exception, bool> transientExceptionChecker = null) =>
+            CallAsync(executor, continueOnCapturedContext, null)
+                .ContinueWith(task =>
+                {
+                    if (task.IsFaulted)
+                    {
+                        return new ConditionalValue<TResult>();
+                    }
+                    else
+                    {
+                        return new ConditionalValue<TResult>(true, task.Result);
+                    }
+                }, TaskContinuationOptions.NotOnCanceled | TaskContinuationOptions.ExecuteSynchronously);
+
     }
 }
+
